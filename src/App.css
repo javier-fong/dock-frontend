@@ -2,37 +2,139 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* ------------------ Nav Section ------------------ */
+
+.nav {
+  width: 100%;
+  height: 65px;
+  position: fixed;
+  line-height: 65px;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  z-index: 9999;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.nav div.logo {
+  float: left;
+  padding-left: 3rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.nav div.logo a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 2rem;
+  padding-right: 1.5rem;
+}
+
+.nav div.logo a:nth-child(n+2) {
+  font-size: 1.5rem;
+}
+
+.nav div.logo a:hover {
+  color: #65BFF6;
+}
+
+.nav div.main_list {
+  float: right;
+}
+
+.nav div.main_list a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.2rem;
+  padding-right: 1rem;
+}
+
+.nav div.main_list a:hover {
+  color: #65BFF6;
+}
+
+.affix {
+  padding: 0;
+  background-color: #111;
+}
+
+/* ------------------ Hero Section ------------------ */
+
+.hero {
+  width: 100%;
+  height: 100vh;
+  background-image: url(https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&auto=format&fit=crop&w=2089&q=80);
+  background-position: center top;
+  background-size: cover;
+}
+
+.layer {
+  background-color: rgba(21, 27, 26, 0.2);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero .hero-div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.hero .hero-div h1 {
+  color: #fff;
+  font-size: 4rem;
+  filter: brightness(100%);
+}
+
+.hero .hero-div p {
+  color: #fff;
+  font-size: 1.5rem;
+  filter: brightness(100%);
+}
+
+.hero .hero-btn {
+  font-weight: 500;
+  font-size: 0.9em;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 12px 32px;
+  border-radius: 50px;
+  transition: 0.5s;
+  line-height: 1;
+  margin: 10px;
+  color: #fff;
+  -webkit-animation-delay: 0.8s;
+  animation-delay: 0.8s;
+  border: 2px solid #65BFF6 ;
+  text-align: center;
+  background: #65BFF6;
+  text-decoration: none;
+}
+
+.hero .hero-btn:hover {
+  box-shadow: 1px 1px 5px 2px #65BFF6;
+}
+
+/* ------------------ Login Section ------------------ */
+
+.login {
+  width: 100%;
+  height: 100vh;
+  background-image: url(https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&auto=format&fit=crop&w=2089&q=80);
+  background-position: center top;
+  background-size: cover;
+}
+
+.login .login-div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-align: center;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  align-items: center;
 }
