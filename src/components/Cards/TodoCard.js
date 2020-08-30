@@ -14,6 +14,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import Todoitems from '../Todo/TodoItems'
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -214,9 +215,11 @@ export default function PrimarySearchAppBar(props) {
             </IconButton>
           </div>
         </Toolbar>
+        <Todoitems />
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
+      
     </div>
   );
 }

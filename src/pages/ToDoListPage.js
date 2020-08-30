@@ -2,10 +2,11 @@ import React, { useEffect, useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import ToDoAppBar from '../components/AppBar/ToDoAppBar';
-import Todos from '../components/Todo/Todos';
+import TodoCard from '../components/Cards/TodoCard';
 import api from '../components/api';
 import { UserContext } from './DashboardPage';
+
+export const TodosContext = React.createContext();
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -34,31 +35,32 @@ const ToDoListPage = () => {
     // States
     const [todos, setToDos] = useState([]);
 
-    useEffect(() => {  
+    useEffect(() => {
         api.getToDos(userEmail)
-        .then(res => {
-            console.log(res)
-            setToDos(res.data)
-        })
-        .catch(err => {
-            console.log(err)
-        })
+            .then(res => {
+                console.log(res)
+                setToDos(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }, [userEmail])
 
     return (
-        <div className={classes.root}>
-            <Grid container spacing={2}>
-                <Grid item xs>
-                    <Paper className={classes.paper}>
-                        <ToDoAppBar name={'Shared To Do List'} />
-                        <Todos todos={todos} />
-                    </Paper>
+        <TodosContext.Provider value={todos}>
+            <div className={classes.root}>
+                <Grid container spacing={2}>
+                    <Grid item xs>
+                        <Paper className={classes.paper}>
+                            <TodoCard name={'Shared To Do List'} />
+                        </Paper>
+                    </Grid>
+                    <Grid item xs>
+                        <Paper className={classes.paper}></Paper>
+                    </Grid>
                 </Grid>
-                <Grid item xs>
-                    <Paper className={classes.paper}></Paper>
-                </Grid>
-            </Grid>
-        </div>
+            </div>
+        </TodosContext.Provider>
     )
 }
 
