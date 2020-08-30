@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
         height: '100vh'
     },
     paper: {
-        padding: theme.spacing(2),
+        // padding: theme.spacing(2),
         textAlign: 'center',
         color: theme.palette.text.secondary,
     },
@@ -38,7 +38,6 @@ const ToDoListPage = () => {
     useEffect(() => {
         api.getToDos(userEmail)
             .then(res => {
-                console.log(res)
                 setToDos(res.data)
             })
             .catch(err => {
@@ -46,13 +45,20 @@ const ToDoListPage = () => {
             })
     }, [userEmail])
 
+    const markComplete = (id) => {
+        setToDos(todos.map(todo => {
+            if (todo._id === id) todo.completed = !todo.completed
+            return todo
+        }))
+    }
+
     return (
-        <TodosContext.Provider value={todos}>
+        // <TodosContext.Provider value={todos}>
             <div className={classes.root}>
                 <Grid container spacing={2}>
                     <Grid item xs>
                         <Paper className={classes.paper}>
-                            <TodoCard name={'Shared To Do List'} />
+                            <TodoCard name={'Shared To Do List'} todos={todos} markComplete={markComplete} />
                         </Paper>
                     </Grid>
                     <Grid item xs>
@@ -60,7 +66,7 @@ const ToDoListPage = () => {
                     </Grid>
                 </Grid>
             </div>
-        </TodosContext.Provider>
+        // </TodosContext.Provider>
     )
 }
 

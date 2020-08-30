@@ -1,5 +1,6 @@
 import React from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
+import { Divider } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -215,7 +216,8 @@ export default function PrimarySearchAppBar(props) {
             </IconButton>
           </div>
         </Toolbar>
-        <Todoitems />
+        <Divider />
+        <Todoitems todos={props.todos} markComplete={props.markComplete} />
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
