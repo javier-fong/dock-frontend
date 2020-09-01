@@ -1,17 +1,24 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, Fragment } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { Divider } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import TodoCard from '../components/Cards/TodoCard';
+import TodoListCard from '../components/Cards/TodoListCard';
 import api from '../components/api';
 import { UserContext } from './DashboardPage';
+import TodoListForm from '../components/Todo/TodoListForm';
 
 export const TodosContext = React.createContext();
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 1,
-        height: '100vh'
+        // flexGrow: 1,
+        display: 'flex',
+        // margin: 'auto',
+        // justifyContent: 'center',
+        flexWrap: 'wrap',
+        // height: '100%',
+        width: '100%'
     },
     paper: {
         // padding: theme.spacing(2),
@@ -26,36 +33,48 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const ToDoListPage = () => {
+const ToDoListPage = (props) => {
     const classes = useStyles();
 
     // Imported user email
     const { userEmail } = useContext(UserContext);
 
     // States
-    const [todos, setToDos] = useState([]);
+    const [toDoLists, setToDos] = useState([]);
 
     useEffect(() => {
-        api.getToDos(userEmail)
-            .then(res => {
-                setToDos(res.data)
-            })
-            .catch(err => {
-                console.log(err)
-            })
+        if (userEmail) {
+            api.getToDos(userEmail)
+                .then(res => {
+                    setToDos(res.data)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        } else {
+            return undefined;
+        }
     }, [userEmail])
 
-    const markComplete = (id) => {
-        setToDos(todos.map(todo => {
-            if (todo._id === id) todo.completed = !todo.completed
-            return todo
-        }))
+    const addToDoList = async (toDoList) => {
+        try {
+             const payload = {
+                 toDoListName: toDoList,
+                 email: userEmail
+             }
+             await api.addToDoList(payload);
+        } catch(err) {
+            console.log(err)
+        }
     }
 
     return (
         // <TodosContext.Provider value={todos}>
+        <Fragment>
+            <TodoListForm addToDoList={addToDoList} />
+            <Divider />
             <div className={classes.root}>
-                <Grid container spacing={2}>
+                {/* <Grid container spacing={2}>
                     <Grid item xs>
                         <Paper className={classes.paper}>
                             <TodoCard name={'Shared To Do List'} todos={todos} markComplete={markComplete} />
@@ -64,8 +83,13 @@ const ToDoListPage = () => {
                     <Grid item xs>
                         <Paper className={classes.paper}></Paper>
                     </Grid>
-                </Grid>
+                </Grid> */}
+                {toDoLists.map(toDoList => 
+                <TodoListCard key={toDoList._id} name={toDoList.toDoListName} toDoItems={toDoList.description} email={toDoList.email} />
+                )}   
             </div>
+        </Fragment>
+
         // </TodosContext.Provider>
     )
 }

@@ -37,15 +37,15 @@ export default function CheckboxList(props) {
   // States
   const classes = useStyles();
   const [checked, setChecked] = useState([0]);
-  const itemsPerPage = 10;
+  const itemsPerPage = 5;
   const [page, setPage] = useState(1);
   const [noOfPages, setNoOfPages] = useState(null);
   const [isComplete, setIsComplete] = useState(null);
   
-  const Todos = props.todos;
+  const toDoItems = props.toDoItems;
 
   const handleNoOfpages = async () => {
-    await setNoOfPages(Math.ceil(Todos.length / itemsPerPage))
+    await setNoOfPages(Math.ceil(toDoItems.length / itemsPerPage))
   }
 
   useEffect(() => {
@@ -56,10 +56,9 @@ export default function CheckboxList(props) {
     setPage(value);
   };
 
-  const handleToggle = (value) => () => {
+  const handleToggle = (value, id) => async () => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
-    console.log(currentIndex)
     if (currentIndex === -1) {
       newChecked.push(value);
       setIsComplete(!isComplete)
@@ -67,25 +66,35 @@ export default function CheckboxList(props) {
       newChecked.splice(currentIndex, 1);
     }
     setChecked(newChecked);
+
+    // const payload = {
+    //   completed: !toDoItems.completed
+    // }
+
+    // try {
+    //   await api.updateToDoCompleted(id, payload);
+    // } catch (err) {
+    //   console.log(err)
+    // }
   };
 
   const markCompleteStyle = () => {
     return {
-      textDecoration: Todos.completed ? 'line-through' : 'none',
+      textDecoration: toDoItems.completed ? 'line-through' : 'none',
     }
   }
 
   return (
     <Fragment>
       <List className={classes.root}>
-        {Todos
+        {toDoItems
           .slice((page - 1) * itemsPerPage, page * itemsPerPage)
           .map((todo, index) => {
             const labelId = `checkbox-list-label-${todo}`;
 
             return (
-              <ListItem key={todo._id} id={todo._id} role={undefined} dense button onClick={handleToggle(todo)}
-              style={markCompleteStyle()} onChange={props.markComplete.bind(this, todo._id)}>
+              <ListItem key={index} id={index} role={undefined} dense button
+              style={markCompleteStyle()}>
                 <ListItemIcon>
                   <Checkbox
                     edge="start"
@@ -93,9 +102,10 @@ export default function CheckboxList(props) {
                     tabIndex={-1}
                     disableRipple
                     inputProps={{ 'aria-labelledby': labelId }}
+                    onClick={handleToggle(todo, index)}
                   />
                 </ListItemIcon>
-                <ListItemText id={labelId} primary={todo.description} />
+                <ListItemText id={labelId} primary={todo} />
                 <ListItemSecondaryAction>
                   <IconButton edge="end" aria-label="comments">
                     <EditIcon />

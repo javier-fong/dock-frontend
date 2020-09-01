@@ -14,15 +14,20 @@ import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
 import Todoitems from '../Todo/TodoItems'
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import TodoModal from '../Todo/TodoModal';
 
 const useStyles = makeStyles((theme) => ({
-  grow: {
-    flexGrow: 1,
+  cardStyle: {
+    // flexGrow: 1,
+    margin: theme.spacing(3)
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(1),
   },
   title: {
     display: 'none',
@@ -79,15 +84,34 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  iconButton: {
+    margin: 0,
+    padding: '8px'
+  }
 }));
+
 
 export default function PrimarySearchAppBar(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  // const [toggleDropDown, setToggleDropDown] = React.useState(null);
+  // const [openModal, setOpenModal] = React.useState(false);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  // const handleOpenModal = () => {
+  //   setOpenModal(true);
+  // };
+
+  // const handleDropDown = (event) => {
+  //   setToggleDropDown(event.currentTarget);
+  // };
+
+  // const handleDropDownClose = () => {
+  //   setToggleDropDown(null);
+  // };
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -164,17 +188,17 @@ export default function PrimarySearchAppBar(props) {
   );
 
   return (
-    <div className={classes.grow}>
+    <div className={classes.cardStyle}>
       <AppBar position="static" color='inherit'>
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
-          >
-            <ListIcon />
-          </IconButton>
+          > */}
+          <ListIcon className={classes.menuButton} />
+          {/* </IconButton> */}
           <Typography className={classes.title} variant="h6" noWrap>
             {props.name}
           </Typography>
@@ -191,18 +215,31 @@ export default function PrimarySearchAppBar(props) {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
-          <div className={classes.grow} />
+          {/* <div className={classes.cardStyle} /> */}
           <div className={classes.sectionDesktop}>
-            <IconButton
+            {/* <IconButton
               edge="end"
               aria-label="account of current user"
               aria-controls={menuId}
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
               color="inherit"
-            >
-              <AccountCircle />
+            > */}
+            {/* <IconButton className={classes.iconButton} onClick={handleDropDown}>
+              <MoreVertIcon />
             </IconButton>
+            <Menu
+              id="simple-menu"
+              anchorEl={toggleDropDown}
+              keepMounted
+              open={Boolean(toggleDropDown)}
+              onClose={handleDropDownClose}
+            >
+              <MenuItem ><AddCircleIcon style={{ marginRight: '10px' }} />Add to do</MenuItem>
+              <MenuItem ><EditIcon style={{ marginRight: '10px' }} />Edit list name</MenuItem>
+              <MenuItem ><DeleteIcon style={{ marginRight: '10px' }} />Delete list</MenuItem>
+            </Menu> */}
+            <TodoModal />
           </div>
           <div className={classes.sectionMobile}>
             <IconButton
@@ -212,16 +249,15 @@ export default function PrimarySearchAppBar(props) {
               onClick={handleMobileMenuOpen}
               color="inherit"
             >
-              <MoreIcon />
+              <AddCircleIcon />
             </IconButton>
           </div>
         </Toolbar>
         <Divider />
-        <Todoitems todos={props.todos} markComplete={props.markComplete} />
+        <Todoitems toDoItems={props.toDoItems} />
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
-      
     </div>
   );
 }

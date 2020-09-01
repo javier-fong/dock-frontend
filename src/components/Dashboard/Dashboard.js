@@ -129,7 +129,13 @@ export default function Dashboard() {
 
     const theme = createMuiTheme({
         palette: {
-            type: darkTheme ? 'dark' : 'light'
+            type: darkTheme ? 'dark' : 'light',
+            primary: {
+                main: '#BB86FC'
+            },
+            secondary: {
+                main: '#03DAC5'
+            }
         }
     })
 
