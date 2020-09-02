@@ -16,15 +16,13 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Todoitems from '../Todo/TodoItems'
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
 import TodoModal from '../Todo/TodoModal';
 
 const useStyles = makeStyles((theme) => ({
   cardStyle: {
     // flexGrow: 1,
-    margin: theme.spacing(3)
+    margin: theme.spacing(3),
+    // width: '450px'
   },
   menuButton: {
     marginRight: theme.spacing(1),
@@ -239,7 +237,7 @@ export default function PrimarySearchAppBar(props) {
               <MenuItem ><EditIcon style={{ marginRight: '10px' }} />Edit list name</MenuItem>
               <MenuItem ><DeleteIcon style={{ marginRight: '10px' }} />Delete list</MenuItem>
             </Menu> */}
-            <TodoModal />
+            <TodoModal name={props.name} />
           </div>
           <div className={classes.sectionMobile}>
             <IconButton

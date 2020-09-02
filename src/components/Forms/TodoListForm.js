@@ -42,7 +42,7 @@ export default function CustomizedInputBase(props) {
         try {
             await props.addToDoList(listFormValue);
             setListFormValue('');
-            window.location.reload();
+            // window.location.reload();
         } catch (err) {
             console.log(err)
         }

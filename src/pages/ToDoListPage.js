@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import TodoListCard from '../components/Cards/TodoListCard';
 import api from '../components/api';
 import { UserContext } from './DashboardPage';
-import TodoListForm from '../components/Todo/TodoListForm';
+import TodoListForm from '../components/Forms/TodoListForm';
 
 export const TodosContext = React.createContext();
 
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         // flexGrow: 1,
         display: 'flex',
         // margin: 'auto',
-        // justifyContent: 'center',
+        // justifyContent: 'space-around',
         flexWrap: 'wrap',
         // height: '100%',
         width: '100%'
@@ -58,12 +58,14 @@ const ToDoListPage = (props) => {
 
     const addToDoList = async (toDoList) => {
         try {
-             const payload = {
-                 toDoListName: toDoList,
-                 email: userEmail
-             }
-             await api.addToDoList(payload);
-        } catch(err) {
+            const payload = {
+                toDoListName: toDoList,
+                email: userEmail
+            }
+            await api.addToDoList(payload);
+            const response = await api.getToDos(userEmail);
+            setToDos(response.data);
+        } catch (err) {
             console.log(err)
         }
     }
@@ -84,9 +86,15 @@ const ToDoListPage = (props) => {
                         <Paper className={classes.paper}></Paper>
                     </Grid>
                 </Grid> */}
-                {toDoLists.map(toDoList => 
-                <TodoListCard key={toDoList._id} name={toDoList.toDoListName} toDoItems={toDoList.description} email={toDoList.email} />
-                )}   
+                {toDoLists.map(toDoList =>
+                    <TodoListCard
+                        key={toDoList._id}
+                        id={toDoList._id}
+                        name={toDoList.toDoListName}
+                        toDoItems={toDoList.description}
+                        email={toDoList.email}
+                    />
+                )}
             </div>
         </Fragment>
 

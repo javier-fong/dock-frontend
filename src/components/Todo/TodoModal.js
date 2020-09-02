@@ -11,9 +11,26 @@ import MenuItem from '@material-ui/core/MenuItem';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 
 const useStyles = makeStyles((theme) => ({
+  formStyle: {
+    '& > *': {
+      width: '50ch',
+    },
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  buttonStyle: {
+    marginLeft: theme.spacing(1)
+  },
+  buttonDiv: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    marginTop: theme.spacing(1)
+  },
   modal: {
     display: 'flex',
     alignItems: 'center',
@@ -28,6 +45,10 @@ const useStyles = makeStyles((theme) => ({
   iconButton: {
     margin: 0,
     padding: '8px'
+  },
+  iconStyle: {
+    margin: 0,
+    // padding: 0
   }
 }));
 
@@ -62,26 +83,35 @@ Fade.propTypes = {
   onExited: PropTypes.func,
 };
 
-export default function SpringModal() {
+export default function SpringModal(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
+  const [open3, setOpen3] = React.useState(false);
   const [toggleDropDown, setToggleDropDown] = React.useState(null);
 
-  const handleOpen = () => {
+  const handleOpenListItem = () => {
     setOpen(true);
   };
 
-  const handleOpen2 = () => {
+  const handleOpenEditListName = () => {
     setOpen2(true);
   };
 
-  const handleClose = () => {
+  const handleOpenDeleteList = () => {
+    setOpen3(true);
+  }
+
+  const handleCloseListItem = () => {
     setOpen(false);
   };
 
-  const handleClose2 = () => {
+  const handleCloseEditListName = () => {
     setOpen2(false);
+  };
+
+  const handleCloseDeleteList = () => {
+    setOpen3(false);
   };
 
   const handleDropDown = (event) => {
@@ -104,17 +134,17 @@ export default function SpringModal() {
         open={Boolean(toggleDropDown)}
         onClose={handleDropDownClose}
       >
-        <MenuItem onClick={handleOpen}><AddCircleIcon style={{ marginRight: '10px' }} />Add to do</MenuItem>
-        <MenuItem onClick={handleOpen2}><EditIcon style={{ marginRight: '10px' }} />Edit list name</MenuItem>
-        <MenuItem onClick={handleOpen}><DeleteIcon style={{ marginRight: '10px' }} />Delete list</MenuItem>
+        <MenuItem onClick={handleOpenListItem}><AddCircleIcon style={{ marginRight: '10px' }} />Add new item</MenuItem>
+        <MenuItem onClick={handleOpenEditListName}><EditIcon style={{ marginRight: '10px' }} />Edit list name</MenuItem>
+        <MenuItem onClick={handleOpenDeleteList}><DeleteIcon style={{ marginRight: '10px' }} />Delete list</MenuItem>
       </Menu>
-      
+
       <Modal
         aria-labelledby="spring-modal-title"
         aria-describedby="spring-modal-description"
         className={classes.modal}
         open={open}
-        onClose={handleClose}
+        onClose={handleCloseListItem}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
@@ -123,8 +153,18 @@ export default function SpringModal() {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <h2 id="spring-modal-title">Spring modal</h2>
-            <p id="spring-modal-description">react-spring animates me.</p>
+            <h4 id="spring-modal-title">{props.name}</h4>
+            <form className={classes.formStyle} noValidate autoComplete="off">
+              <TextField id="standard-basic" label="Add new item" />
+              <div className={classes.buttonDiv}>
+                <Button variant="contained" color="primary" className={classes.buttonStyle} onClick={handleCloseListItem}>
+                  Close
+                </Button>
+                <Button variant="contained" color="secondary" className={classes.buttonStyle}>
+                  Add
+                </Button>
+              </div>
+            </form>
           </div>
         </Fade>
       </Modal>
@@ -134,7 +174,7 @@ export default function SpringModal() {
         aria-describedby="spring-modal-description"
         className={classes.modal}
         open={open2}
-        onClose={handleClose2}
+        onClose={handleCloseEditListName}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
@@ -143,7 +183,27 @@ export default function SpringModal() {
       >
         <Fade in={open2}>
           <div className={classes.paper}>
-            <h2 id="spring-modal-title">Spring modal 2</h2>
+            <h2 id="spring-modal-title">{props.name}</h2>
+            <p id="spring-modal-description">react-spring animates me. 2</p>
+          </div>
+        </Fade>
+      </Modal>
+
+      <Modal
+        aria-labelledby="spring-modal-title"
+        aria-describedby="spring-modal-description"
+        className={classes.modal}
+        open={open3}
+        onClose={handleCloseDeleteList}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open3}>
+          <div className={classes.paper}>
+            <h2 id="spring-modal-title">{props.name}</h2>
             <p id="spring-modal-description">react-spring animates me. 2</p>
           </div>
         </Fade>
