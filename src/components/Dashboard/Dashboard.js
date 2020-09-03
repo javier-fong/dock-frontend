@@ -134,7 +134,8 @@ export default function Dashboard() {
                 main: '#BB86FC'
             },
             secondary: {
-                main: '#03DAC5'
+                main: '#03DAC5',
+                light: '#ff7961'
             }
         }
     })

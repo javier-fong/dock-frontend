@@ -237,7 +237,11 @@ export default function PrimarySearchAppBar(props) {
               <MenuItem ><EditIcon style={{ marginRight: '10px' }} />Edit list name</MenuItem>
               <MenuItem ><DeleteIcon style={{ marginRight: '10px' }} />Delete list</MenuItem>
             </Menu> */}
-            <TodoModal name={props.name} />
+            <TodoModal name={props.name} id={props.id} 
+            addToDoItem={props.addToDoItem} 
+            updateToDoListName={props.updateToDoListName}
+            deleteToDoList={props.deleteToDoList}
+            />
           </div>
           <div className={classes.sectionMobile}>
             <IconButton

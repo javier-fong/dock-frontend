@@ -21,14 +21,20 @@ const googleLogin = response => api.post('/googlelogin', {
 const getToDos = email => api.get(`/todos/${email}`);
 const updateToDoCompleted = (id, payload) => api.put(`/todo/completed/${id}`, payload);
 const addToDoList = payload => api.post('/todoList', payload);
-const addToDoItem = (id, payload) => api.put(`todo/${id}`, payload);
+const addToDoItem = (id, payload) => api.put(`todo/item/${id}`, payload);
+const deleteToDoItem = (id, payload) => api.delete(`todo/item/${id}`, payload);
+const updateToDoListName = (id, payload) => api.put(`todo/list/${id}`, payload);
+const deleteToDoList = id => api.delete(`/todo/list/${id}`);
 
 const apis = {
     googleLogin,
     getToDos,
     updateToDoCompleted,
     addToDoList,
-    addToDoItem
+    addToDoItem,
+    deleteToDoItem,
+    updateToDoListName,
+    deleteToDoList
 }
 
 export default apis

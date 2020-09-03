@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useContext, Fragment } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Divider } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
 import TodoListCard from '../components/Cards/TodoListCard';
 import api from '../components/api';
 import { UserContext } from './DashboardPage';
@@ -70,6 +68,40 @@ const ToDoListPage = (props) => {
         }
     }
 
+    const addToDoItem = async (id, payload) => {
+        try {
+            await api.addToDoItem(id, payload);
+            const response = await api.getToDos(userEmail);
+            setToDos(response.data);
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const updateToDoListName = async (id, payload) => {
+        try {
+            await api.updateToDoListName(id, payload);
+            const response = await api.getToDos(userEmail);
+            setToDos(response.data);
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const deleteToDoList = async id => {
+        try {
+            await api.deleteToDoList(id);
+            if (toDoLists.length === 1) {
+                window.location.reload();
+            } else {
+                const response = await api.getToDos(userEmail);
+                setToDos(response.data);
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     return (
         // <TodosContext.Provider value={todos}>
         <Fragment>
@@ -93,6 +125,9 @@ const ToDoListPage = (props) => {
                         name={toDoList.toDoListName}
                         toDoItems={toDoList.description}
                         email={toDoList.email}
+                        addToDoItem={addToDoItem}
+                        updateToDoListName={updateToDoListName}
+                        deleteToDoList={deleteToDoList}
                     />
                 )}
             </div>
