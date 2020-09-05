@@ -4,13 +4,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
 import { Pagination } from '@material-ui/lab/';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
+import TodoItemModal from '../Todo/TodoItemModal';
+import api from '../api';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,7 +39,7 @@ export default function CheckboxList(props) {
   const [page, setPage] = useState(1);
   const [noOfPages, setNoOfPages] = useState(null);
   const [isComplete, setIsComplete] = useState(null);
-  
+
   const toDoItems = props.toDoItems;
 
   const handleNoOfpages = async () => {
@@ -66,23 +64,13 @@ export default function CheckboxList(props) {
       newChecked.splice(currentIndex, 1);
     }
     setChecked(newChecked);
-
-    // const payload = {
-    //   completed: !toDoItems.completed
-    // }
-
-    // try {
-    //   await api.updateToDoCompleted(id, payload);
-    // } catch (err) {
-    //   console.log(err)
-    // }
   };
 
-  const markCompleteStyle = () => {
-    return {
-      textDecoration: toDoItems.completed ? 'line-through' : 'none',
-    }
-  }
+  // const markCompleteStyle = () => {
+  //   return {
+  //     textDecoration: toDoItems.completed ? 'line-through' : 'none',
+  //   }
+  // }
 
   return (
     <Fragment>
@@ -91,10 +79,8 @@ export default function CheckboxList(props) {
           .slice((page - 1) * itemsPerPage, page * itemsPerPage)
           .map((todo, index) => {
             const labelId = `checkbox-list-label-${todo}`;
-
             return (
-              <ListItem key={index} id={index} role={undefined} dense button
-              style={markCompleteStyle()}>
+              <ListItem key={index} id={index} role={undefined} dense button>
                 <ListItemIcon>
                   <Checkbox
                     edge="start"
@@ -106,14 +92,13 @@ export default function CheckboxList(props) {
                   />
                 </ListItemIcon>
                 <ListItemText id={labelId} primary={todo} />
-                <ListItemSecondaryAction>
-                  <IconButton edge="end" aria-label="comments">
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton edge="end" aria-label="comments">
-                    <DeleteIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
+                <TodoItemModal
+                  id={props.id}
+                  index={index}
+                  description={todo}
+                  deleteItem={props.deleteItem}
+                  updateToDoItem={props.updateToDoItem}
+                />
               </ListItem>
             );
           })}

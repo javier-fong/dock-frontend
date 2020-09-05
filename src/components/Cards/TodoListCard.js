@@ -16,7 +16,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Todoitems from '../Todo/TodoItems'
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import TodoModal from '../Todo/TodoModal';
+import TodoListModal from '../Todo/TodoListModal';
 
 const useStyles = makeStyles((theme) => ({
   cardStyle: {
@@ -237,10 +237,12 @@ export default function PrimarySearchAppBar(props) {
               <MenuItem ><EditIcon style={{ marginRight: '10px' }} />Edit list name</MenuItem>
               <MenuItem ><DeleteIcon style={{ marginRight: '10px' }} />Delete list</MenuItem>
             </Menu> */}
-            <TodoModal name={props.name} id={props.id} 
-            addToDoItem={props.addToDoItem} 
-            updateToDoListName={props.updateToDoListName}
-            deleteToDoList={props.deleteToDoList}
+            <TodoListModal
+              name={props.name}
+              id={props.id}
+              addToDoItem={props.addToDoItem}
+              updateToDoListName={props.updateToDoListName}
+              deleteToDoList={props.deleteToDoList}
             />
           </div>
           <div className={classes.sectionMobile}>
@@ -256,7 +258,12 @@ export default function PrimarySearchAppBar(props) {
           </div>
         </Toolbar>
         <Divider />
-        <Todoitems toDoItems={props.toDoItems} />
+        <Todoitems
+          toDoItems={props.toDoItems}
+          id={props.id}
+          deleteItem={props.deleteItem}
+          updateToDoItem={props.updateToDoItem}
+        />
       </AppBar>
       {renderMobileMenu}
       {renderMenu}

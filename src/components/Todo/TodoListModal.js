@@ -163,7 +163,6 @@ export default function SpringModal(props) {
   const deleteList = async () => {
     try {
       await props.deleteToDoList(props.id);
-      setOpenDeleteList(false);
     } catch(err) {
       console.log(err)
     }

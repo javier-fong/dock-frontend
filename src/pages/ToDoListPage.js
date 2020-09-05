@@ -102,6 +102,26 @@ const ToDoListPage = (props) => {
         }
     }
 
+    const deleteItem = async (id, payload) => {
+        try {
+            await api.deleteToDoItem(id, payload);
+            const response = await api.getToDos(userEmail);
+            setToDos(response.data);
+        } catch(err) {
+            console.log(err)
+        }
+    }
+
+    const updateToDoItem = async (id, payload) => {
+        try {
+            await api.updateToDoItem(id, payload);
+            const response = await api.getToDos(userEmail);
+            setToDos(response.data);
+        } catch(err) {
+            console.log(err)
+        }
+    }
+
     return (
         // <TodosContext.Provider value={todos}>
         <Fragment>
@@ -128,6 +148,8 @@ const ToDoListPage = (props) => {
                         addToDoItem={addToDoItem}
                         updateToDoListName={updateToDoListName}
                         deleteToDoList={deleteToDoList}
+                        deleteItem={deleteItem}
+                        updateToDoItem={updateToDoItem}
                     />
                 )}
             </div>

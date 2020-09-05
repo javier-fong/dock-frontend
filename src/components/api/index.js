@@ -22,9 +22,10 @@ const getToDos = email => api.get(`/todos/${email}`);
 const updateToDoCompleted = (id, payload) => api.put(`/todo/completed/${id}`, payload);
 const addToDoList = payload => api.post('/todoList', payload);
 const addToDoItem = (id, payload) => api.put(`todo/item/${id}`, payload);
-const deleteToDoItem = (id, payload) => api.delete(`todo/item/${id}`, payload);
-const updateToDoListName = (id, payload) => api.put(`todo/list/${id}`, payload);
+const updateToDoListName = (id, payload) => api.put(`/todo/list/${id}`, payload);
 const deleteToDoList = id => api.delete(`/todo/list/${id}`);
+const deleteToDoItem = (id, payload) => api.delete(`/todo/item/delete/${id}/${payload}`);
+const updateToDoItem = (id, payload) => api.put(`/todo/item/update/${id}`, payload);
 
 const apis = {
     googleLogin,
@@ -32,9 +33,10 @@ const apis = {
     updateToDoCompleted,
     addToDoList,
     addToDoItem,
-    deleteToDoItem,
     updateToDoListName,
-    deleteToDoList
+    deleteToDoList,
+    deleteToDoItem,
+    updateToDoItem
 }
 
 export default apis
