@@ -17,6 +17,10 @@ const googleLogin = response => api.post('/googlelogin', {
     console.log(err);
 })
 
+/* -------------------- User -------------------- */
+const deleteMember = (id, payload) => api.delete(`/member/delete/${id}/${payload}`);
+const getMembers = email => api.get(`/users/${email}`);
+
 /* -------------------- To Do -------------------- */
 const getToDos = email => api.get(`/todos/${email}`);
 const updateToDoCompleted = (id, payload) => api.put(`/todo/completed/${id}`, payload);
@@ -36,7 +40,9 @@ const apis = {
     updateToDoListName,
     deleteToDoList,
     deleteToDoItem,
-    updateToDoItem
+    updateToDoItem,
+    deleteMember,
+    getMembers
 }
 
 export default apis

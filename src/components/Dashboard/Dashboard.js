@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import clsx from 'clsx';
 import { Link } from '@material-ui/core';
@@ -27,7 +27,10 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import InvertColorsIcon from '@material-ui/icons/InvertColors';
 import Avatar from '@material-ui/core/Avatar';
-import { deepOrange, deepPurple } from '@material-ui/core/colors';
+import Chip from '@material-ui/core/Chip';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import { purple, red, pink, blue, cyan, teal, green, orange, brown, blueGrey } from '@material-ui/core/colors';
+import DashboardMemberModal from './DashboardMemberModal';
 
 // Import Pages
 import { OverviewPage, ToDoListPage, PhotoJournalPage } from '../../pages';
@@ -36,6 +39,18 @@ import { OverviewPage, ToDoListPage, PhotoJournalPage } from '../../pages';
 import { UserContext } from '../../pages/DashboardPage';
 
 const drawerWidth = 240;
+
+const new_purple = purple[400];
+const new_red = red[400];
+const new_pink = pink[400];
+const new_blue = blue[400];
+const new_cyan = cyan[400];
+const new_teal = teal[400];
+const new_green = green[400];
+const new_orange = orange[400];
+const new_brown = brown[400];
+const new_blueGrey = blueGrey[400];
+const colors = [new_purple, new_red, new_pink, new_blue, new_cyan, new_teal, new_green, new_orange, new_brown, new_blueGrey];
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -117,14 +132,12 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     closeAvatar: {
-        color: theme.palette.getContrastText(deepOrange[500]),
-        backgroundColor: deepOrange[500],
+        width: theme.spacing(6),
+        height: theme.spacing(6),
     },
     openAvatar: {
-        color: theme.palette.getContrastText(deepPurple[500]),
-        backgroundColor: deepPurple[500],
-        width: theme.spacing(7),
-        height: theme.spacing(7),
+        width: theme.spacing(6),
+        height: theme.spacing(6),
     },
     avatarAlign: {
         justifyContent: 'center',
@@ -133,19 +146,38 @@ const useStyles = makeStyles((theme) => ({
     },
     profileMargin: {
         marginTop: theme.spacing(2)
+    },
+    iconAlignStyle: {
+        marginLeft: theme.spacing(1)
+    },
+    membersAlignStyle: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        marginLeft: theme.spacing(1)
+    },
+    chipDivStyle: {
+        display: 'flex',
+        flexWrap: 'wrap'
+    },
+    chipStyle: {
+        marginRight: theme.spacing(1),
+        marginBottom: theme.spacing(1),
     }
 }));
 
-export default function Dashboard() {
+export default function Dashboard(props) {
     const classes = useStyles();
 
     // Imported user data state
-    const { userFirstName } = useContext(UserContext);
+    const { userFirstName, userMembers } = useContext(UserContext);
 
     // States
     const [open, setOpen] = useState(false);
     const [toggle, toggleList] = useState(false);
     const [darkTheme, setDarkTheme] = useState(true);
+
+    const getRandomColors = () => colors[Math.floor(Math.random() * colors.length)]
 
     const theme = createMuiTheme({
         palette: {
@@ -172,6 +204,19 @@ export default function Dashboard() {
         toggleList(!toggle);
     }
 
+    const handleDeleteMember = async member => {
+        try {
+            await props.deleteUserMember(member)
+        } catch(err) {
+            console.log(err)
+        }
+    }
+
+    const handleDelete = member => {
+        handleDeleteMember(member);
+    };
+
+    
     return (
         <Router>
             {/* ----------------------------------- NAV SECTION ----------------------------------- */}
@@ -231,47 +276,72 @@ export default function Dashboard() {
 
                         <List>
                             <ListItem className={classes.avatarAlign}>
-                                {open ? 
-                                <Avatar className={classes.openAvatar} src='https://i.pinimg.com/originals/22/96/b7/2296b76fcbad3dd2764033c667dde33c.png'></Avatar> 
-                                : 
-                                <Avatar className={classes.closeAvatar}>N</Avatar>}
+                                {open ?
+                                    <Avatar className={classes.openAvatar} src='https://i.pinimg.com/originals/22/96/b7/2296b76fcbad3dd2764033c667dde33c.png'>
+                                    </Avatar>
+                                    :
+                                    <Avatar className={classes.closeAvatar} src='https://i.pinimg.com/originals/22/96/b7/2296b76fcbad3dd2764033c667dde33c.png'>
+                                    </Avatar>}
                             </ListItem>
+                            {open ?
+                                <ListItem className={classes.membersAlignStyle}>
+                                    <div style={{display:'flex', justifyContent: 'space-between', width: '100%'}}>
+                                        <ListItemText primary='Members:' style={{ alignSelf: 'center' }} />
+                                        <DashboardMemberModal />
+                                    </div>
+                                    <div className={classes.chipDivStyle}>
+                                        {userMembers.map((member, index) =>
+                                            <Chip
+                                                key={index}
+                                                size="small"
+                                                label={member}
+                                                value={member}
+                                                onDelete={() => handleDelete(member)}
+                                                className={classes.chipStyle}
+                                                style={{ backgroundColor: getRandomColors() }}
+                                            />
+                                        )}
+                                    </div>
+                                </ListItem>
+
+                                :
+                                null}
                             <Divider />
                             <ListItem button key='Profile' className={classes.profileMargin}>
-                                <ListItemIcon><AccountBoxIcon /></ListItemIcon>
+                                <ListItemIcon className={classes.iconAlignStyle}><AccountBoxIcon /></ListItemIcon>
                                 <ListItemText primary='Profile' />
                             </ListItem>
                             <ListItem button key='Dashboard'>
-                                <ListItemIcon><DashboardIcon /></ListItemIcon>
+                                <ListItemIcon className={classes.iconAlignStyle}><DashboardIcon /></ListItemIcon>
                                 <ListItemText primary='Dashboard' />
                             </ListItem>
                             <ListItem button key='Calendar'>
-                                <ListItemIcon><EventNoteIcon /></ListItemIcon>
+                                <ListItemIcon className={classes.iconAlignStyle}><EventNoteIcon /></ListItemIcon>
                                 <ListItemText primary='Calendar' />
                             </ListItem>
                             <ListItem button key='Photo Journal' to='/app/photojournal'>
                                 <Link href='/app/photojournal' color='inherit' className={classes.linkStyle}>
-                                    <ListItemIcon><PhotoLibraryIcon /></ListItemIcon>
+                                    <ListItemIcon className={classes.iconAlignStyle}><PhotoLibraryIcon /></ListItemIcon>
                                     <ListItemText primary='Photo Journal' />
                                 </Link>
 
                             </ListItem>
                             <List>
                                 <ListItem button key='Shopping List' onClick={handleToggleList}>
-                                    <ListItemIcon><ShoppingCartIcon /></ListItemIcon>
+                                    <ListItemIcon className={classes.iconAlignStyle}><ShoppingCartIcon /></ListItemIcon>
                                     <ListItemText primary='Shopping List' />
                                     <KeyboardArrowDownIcon></KeyboardArrowDownIcon>
                                 </ListItem>
                                 {toggle ?
                                     <ListItem button key='Grocery List' className={classes.subList}>
-                                        <ListItemIcon></ListItemIcon>
+                                        <ListItemIcon className={classes.iconAlignStyle}></ListItemIcon>
                                         <ListItemText primary='Grocery List' />
                                     </ListItem>
                                     : null}
                             </List>
                             <ListItem button key='To Do List' to='/app/todolist'>
                                 <Link href='/app/todolist' color='inherit' className={classes.linkStyle}>
-                                    <ListItemIcon><CheckBoxIcon /></ListItemIcon>
+                                    <ListItemIcon className={classes.iconAlignStyle}><CheckBoxIcon /></ListItemIcon>
                                     <ListItemText primary='To Do List' />
                                 </Link>
                             </ListItem>
@@ -280,7 +350,7 @@ export default function Dashboard() {
                         <List className={classes.alignBottom}>
                             {['Log Out'].map((text, index) => (
                                 <ListItem button key={text}>
-                                    <ListItemIcon><PowerSettingsNewIcon /></ListItemIcon>
+                                    <ListItemIcon className={classes.iconAlignStyle}><PowerSettingsNewIcon /></ListItemIcon>
                                     <ListItemText primary={text} />
                                 </ListItem>
                             ))}
