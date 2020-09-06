@@ -8,7 +8,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import { Pagination } from '@material-ui/lab/';
 import TodoItemModal from '../Todo/TodoItemModal';
-import api from '../api';
 
 const useStyles = makeStyles((theme) => ({
   root: {

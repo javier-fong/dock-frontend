@@ -141,7 +141,7 @@ export default function SpringModal(props) {
       await props.addToDoItem(props.id, payload);
       setToDoItem('');
       setOpen(false);
-    } catch(err) {
+    } catch (err) {
       console.log(err)
     }
   }
@@ -155,7 +155,7 @@ export default function SpringModal(props) {
       await props.updateToDoListName(props.id, payload);
       setOpenEditListName(false);
       setListName('');
-    } catch(err) {
+    } catch (err) {
       console.log(err)
     }
   }
@@ -163,7 +163,7 @@ export default function SpringModal(props) {
   const deleteList = async () => {
     try {
       await props.deleteToDoList(props.id);
-    } catch(err) {
+    } catch (err) {
       console.log(err)
     }
   }
@@ -200,9 +200,15 @@ export default function SpringModal(props) {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <h4 id="spring-modal-title">{props.name}</h4>
+            <h4 id="spring-modal-title">Add New Item</h4>
             <form className={classes.formStyle} noValidate autoComplete="off" onSubmit={submitNewItem}>
-              <TextField id="standard-basic" label="Add new item" onChange={event => setToDoItem(event.target.value)} value={toDoItem} />
+              <TextField
+                id="standard-basic"
+                label="New item"
+                autoFocus='true'
+                onChange={event => setToDoItem(event.target.value)}
+                value={toDoItem}
+              />
               <div className={classes.buttonDiv}>
                 <Button variant="contained" color="primary" className={classes.buttonStyle} onClick={handleCloseListItem}>
                   Close
@@ -231,9 +237,16 @@ export default function SpringModal(props) {
       >
         <Fade in={openEditListName}>
           <div className={classes.paper}>
-            <h2 id="spring-modal-title">{props.name}</h2>
+            <h4 id="spring-modal-title">Edit List Name</h4>
             <form className={classes.formStyle} noValidate autoComplete="off" onSubmit={updateListName}>
-              <TextField id="standard-basic" label="Edit list name" onChange={event => setListName(event.target.value)} value={listName} />
+              <TextField
+                id="standard-basic"
+                label="New name"
+                placeholder={props.name}
+                autoFocus='true'
+                onChange={event => setListName(event.target.value)}
+                value={listName}
+              />
               <div className={classes.buttonDiv}>
                 <Button variant="contained" color="primary" className={classes.buttonStyle} onClick={handleCloseEditListName}>
                   Close
@@ -261,17 +274,17 @@ export default function SpringModal(props) {
         }}
       >
         <Fade in={openDeleteList}>
-          <div className={classes.paper} style={{ textAlign:'center' }}>
+          <div className={classes.paper} style={{ textAlign: 'center' }}>
             <h2 id="spring-modal-title">Confirm Delete</h2>
-              <p>Are you sure you want to delete this list?</p>
-              <div className={classes.buttonDiv} style={{ justifyContent:'center' }}>
-                <Button variant="contained" color="primary" className={classes.delButtonStyle} onClick={handleCloseDeleteList}>
-                  Close
+            <p>Are you sure you want to delete this list?</p>
+            <div className={classes.buttonDiv} style={{ justifyContent: 'center' }}>
+              <Button variant="contained" color="primary" className={classes.delButtonStyle} onClick={handleCloseDeleteList}>
+                Close
                 </Button>
-                <Button variant="contained" color="secondary" className={classes.delButtonStyle2} onClick={deleteList}>
-                  Delete
+              <Button variant="contained" color="secondary" className={classes.delButtonStyle2} onClick={deleteList}>
+                Delete
                 </Button>
-              </div>
+            </div>
           </div>
         </Fade>
       </Modal>

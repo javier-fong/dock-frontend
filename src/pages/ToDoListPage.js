@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext, Fragment } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Divider } from '@material-ui/core';
-import TodoListCard from '../components/Cards/TodoListCard';
+import TodoListCard from '../components/Todo/TodoListCard';
 import api from '../components/api';
 import { UserContext } from './DashboardPage';
 import TodoListForm from '../components/Forms/TodoListForm';
@@ -123,21 +123,10 @@ const ToDoListPage = (props) => {
     }
 
     return (
-        // <TodosContext.Provider value={todos}>
         <Fragment>
             <TodoListForm addToDoList={addToDoList} />
             <Divider />
             <div className={classes.root}>
-                {/* <Grid container spacing={2}>
-                    <Grid item xs>
-                        <Paper className={classes.paper}>
-                            <TodoCard name={'Shared To Do List'} todos={todos} markComplete={markComplete} />
-                        </Paper>
-                    </Grid>
-                    <Grid item xs>
-                        <Paper className={classes.paper}></Paper>
-                    </Grid>
-                </Grid> */}
                 {toDoLists.map(toDoList =>
                     <TodoListCard
                         key={toDoList._id}
@@ -154,8 +143,6 @@ const ToDoListPage = (props) => {
                 )}
             </div>
         </Fragment>
-
-        // </TodosContext.Provider>
     )
 }
 

@@ -26,9 +26,11 @@ import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import InvertColorsIcon from '@material-ui/icons/InvertColors';
+import Avatar from '@material-ui/core/Avatar';
+import { deepOrange, deepPurple } from '@material-ui/core/colors';
 
 // Import Pages
-import { OverviewPage, ToDoListPage } from '../../pages';
+import { OverviewPage, ToDoListPage, PhotoJournalPage } from '../../pages';
 
 // Import state
 import { UserContext } from '../../pages/DashboardPage';
@@ -113,6 +115,24 @@ const useStyles = makeStyles((theme) => ({
             color: 'inherit',
             textDecoration: 'none'
         }
+    },
+    closeAvatar: {
+        color: theme.palette.getContrastText(deepOrange[500]),
+        backgroundColor: deepOrange[500],
+    },
+    openAvatar: {
+        color: theme.palette.getContrastText(deepPurple[500]),
+        backgroundColor: deepPurple[500],
+        width: theme.spacing(7),
+        height: theme.spacing(7),
+    },
+    avatarAlign: {
+        justifyContent: 'center',
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(2)
+    },
+    profileMargin: {
+        marginTop: theme.spacing(2)
     }
 }));
 
@@ -210,7 +230,14 @@ export default function Dashboard() {
                         <Divider />
 
                         <List>
-                            <ListItem button key='Profile'>
+                            <ListItem className={classes.avatarAlign}>
+                                {open ? 
+                                <Avatar className={classes.openAvatar} src='https://i.pinimg.com/originals/22/96/b7/2296b76fcbad3dd2764033c667dde33c.png'></Avatar> 
+                                : 
+                                <Avatar className={classes.closeAvatar}>N</Avatar>}
+                            </ListItem>
+                            <Divider />
+                            <ListItem button key='Profile' className={classes.profileMargin}>
                                 <ListItemIcon><AccountBoxIcon /></ListItemIcon>
                                 <ListItemText primary='Profile' />
                             </ListItem>
@@ -222,9 +249,12 @@ export default function Dashboard() {
                                 <ListItemIcon><EventNoteIcon /></ListItemIcon>
                                 <ListItemText primary='Calendar' />
                             </ListItem>
-                            <ListItem button key='Family Journal'>
-                                <ListItemIcon><PhotoLibraryIcon /></ListItemIcon>
-                                <ListItemText primary='Family Journal' />
+                            <ListItem button key='Photo Journal' to='/app/photojournal'>
+                                <Link href='/app/photojournal' color='inherit' className={classes.linkStyle}>
+                                    <ListItemIcon><PhotoLibraryIcon /></ListItemIcon>
+                                    <ListItemText primary='Photo Journal' />
+                                </Link>
+
                             </ListItem>
                             <List>
                                 <ListItem button key='Shopping List' onClick={handleToggleList}>
@@ -242,7 +272,7 @@ export default function Dashboard() {
                             <ListItem button key='To Do List' to='/app/todolist'>
                                 <Link href='/app/todolist' color='inherit' className={classes.linkStyle}>
                                     <ListItemIcon><CheckBoxIcon /></ListItemIcon>
-                                    <ListItemText primary='To Do List'></ListItemText>
+                                    <ListItemText primary='To Do List' />
                                 </Link>
                             </ListItem>
                         </List>
@@ -264,6 +294,7 @@ export default function Dashboard() {
                             <main className={classes.content}>
                                 <Route path='/app/dashboard' component={OverviewPage} />
                                 <Route path='/app/todolist' component={ToDoListPage} />
+                                <Route path='/app/photojournal' component={PhotoJournalPage} />
                             </main>
                         </React.Fragment>
                     </Switch>

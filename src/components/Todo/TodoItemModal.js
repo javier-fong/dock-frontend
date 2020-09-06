@@ -120,7 +120,7 @@ export default function SpringModal(props) {
             await props.updateToDoItem(props.id, payload)
             setItem('');
             setOpenEdit(false);
-        } catch(err) {
+        } catch (err) {
             console.log(err)
         }
     }
@@ -151,9 +151,16 @@ export default function SpringModal(props) {
             >
                 <Fade in={openEdit}>
                     <div className={classes.paper}>
-                        <h2 id="spring-modal-title">{props.description}</h2>
+                    <h4 id="spring-modal-title">Edit Item</h4>
                         <form className={classes.formStyle} noValidate autoComplete="off" onSubmit={handleEditItem} >
-                            <TextField id="standard-basic" label="Edit item" onChange={event => setItem(event.target.value)} value={item} />
+                            <TextField
+                                id="standard-basic"
+                                // label="Edit item"
+                                placeholder={props.description}
+                                autoFocus='true'
+                                onChange={event => setItem(event.target.value)}
+                                value={item}
+                            />
                             <div className={classes.buttonDiv}>
                                 <Button variant="contained" color="primary" className={classes.buttonStyle} onClick={handleCloseEdit}>
                                     Close
