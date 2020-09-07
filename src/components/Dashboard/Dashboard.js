@@ -246,7 +246,7 @@ export default function Dashboard(props) {
                     </Typography>
                             <List style={{ marginLeft: 'auto' }}>
                                 <ListItem>
-                                    <Typography variant='h6' style={{ marginRight: '10px' }}>{userFirstName}</Typography>
+                                    {/* <Typography variant='h6' style={{ marginRight: '10px' }}>{userFirstName}</Typography> */}
                                     <IconButton onClick={() => setDarkTheme(!darkTheme)}><InvertColorsIcon /></IconButton>
                                 </ListItem>
                             </List>

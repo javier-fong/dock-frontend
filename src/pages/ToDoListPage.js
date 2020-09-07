@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const ToDoListPage = (props) => {
+const ToDoListPage = () => {
     const classes = useStyles();
 
     // Imported user email

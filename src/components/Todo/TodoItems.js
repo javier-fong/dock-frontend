@@ -110,7 +110,7 @@ export default function CheckboxList(props) {
           onChange={handleChange}
           defaultPage={1}
           color="primary"
-          size="large"
+          size="medium"
           showFirstButton
           showLastButton
           classes={{ ul: classes.paginator }}

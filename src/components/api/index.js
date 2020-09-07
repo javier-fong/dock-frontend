@@ -17,12 +17,12 @@ const googleLogin = response => api.post('/googlelogin', {
     console.log(err);
 })
 
-/* -------------------- User -------------------- */
+/* ------------------------------- User ------------------------------- */
 const deleteMember = (id, payload) => api.delete(`/member/delete/${id}/${payload}`);
 const getMembers = email => api.get(`/users/${email}`);
 const addMember = (id, payload) => api.put(`/member/add/${id}`, payload);
 
-/* -------------------- To Do -------------------- */
+/* ------------------------------- To Do ------------------------------- */
 const getToDos = email => api.get(`/todos/${email}`);
 const updateToDoCompleted = (id, payload) => api.put(`/todo/completed/${id}`, payload);
 const addToDoList = payload => api.post('/todoList', payload);
@@ -31,6 +31,10 @@ const updateToDoListName = (id, payload) => api.put(`/todo/list/${id}`, payload)
 const deleteToDoList = id => api.delete(`/todo/list/${id}`);
 const deleteToDoItem = (id, payload) => api.delete(`/todo/item/delete/${id}/${payload}`);
 const updateToDoItem = (id, payload) => api.put(`/todo/item/update/${id}`, payload);
+
+/* ------------------------------- Photo Journal ------------------------------- */
+const createJournalPost = payload => api.post('/journalpost/create', payload);
+const getJournalPosts = email => api.get(`/journalposts/${email}`);
 
 const apis = {
     googleLogin,
@@ -44,7 +48,9 @@ const apis = {
     updateToDoItem,
     deleteMember,
     getMembers,
-    addMember
+    addMember,
+    createJournalPost,
+    getJournalPosts
 }
 
 export default apis

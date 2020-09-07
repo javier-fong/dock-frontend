@@ -60,6 +60,7 @@ export default function CustomizedInputBase(props) {
             if (listFormValue && owner !== '') {
                 await props.addToDoList(listFormValue, owner);
                 setListFormValue('');
+                setOwner('');
             }
         } catch (err) {
             console.log(err)
@@ -102,7 +103,7 @@ export default function CustomizedInputBase(props) {
                     <FormHelperText>Required</FormHelperText>
                 </FormControl>
             </form>
-            <IconButton color='primary' className={classes.iconButton} onClick={handleFormSubmit}>
+            <IconButton color='secondary' className={classes.iconButton} onClick={handleFormSubmit}>
                 <AddCircleIcon />
             </IconButton>
         </Paper>
