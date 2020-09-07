@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import clsx from 'clsx';
 import { Link } from '@material-ui/core';
@@ -23,14 +23,13 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+// import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+// import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import InvertColorsIcon from '@material-ui/icons/InvertColors';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { purple, red, pink, blue, cyan, teal, green, orange, brown, blueGrey } from '@material-ui/core/colors';
-import DashboardMemberModal from './DashboardMemberModal';
+import DashboardMemberDropdown from './DashboardMemberDropdown';
 
 // Import Pages
 import { OverviewPage, ToDoListPage, PhotoJournalPage } from '../../pages';
@@ -177,7 +176,7 @@ export default function Dashboard(props) {
     const [toggle, toggleList] = useState(false);
     const [darkTheme, setDarkTheme] = useState(true);
 
-    const getRandomColors = () => colors[Math.floor(Math.random() * colors.length)]
+    const getRandomColors = () => colors[Math.floor(Math.random() * colors.length)];
 
     const theme = createMuiTheme({
         palette: {
@@ -207,7 +206,7 @@ export default function Dashboard(props) {
     const handleDeleteMember = async member => {
         try {
             await props.deleteUserMember(member)
-        } catch(err) {
+        } catch (err) {
             console.log(err)
         }
     }
@@ -216,7 +215,7 @@ export default function Dashboard(props) {
         handleDeleteMember(member);
     };
 
-    
+
     return (
         <Router>
             {/* ----------------------------------- NAV SECTION ----------------------------------- */}
@@ -285,9 +284,9 @@ export default function Dashboard(props) {
                             </ListItem>
                             {open ?
                                 <ListItem className={classes.membersAlignStyle}>
-                                    <div style={{display:'flex', justifyContent: 'space-between', width: '100%'}}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
                                         <ListItemText primary='Members:' style={{ alignSelf: 'center' }} />
-                                        <DashboardMemberModal />
+                                        <DashboardMemberDropdown handleAddMember={props.handleAddMember} />
                                     </div>
                                     <div className={classes.chipDivStyle}>
                                         {userMembers.map((member, index) =>
@@ -311,9 +310,11 @@ export default function Dashboard(props) {
                                 <ListItemIcon className={classes.iconAlignStyle}><AccountBoxIcon /></ListItemIcon>
                                 <ListItemText primary='Profile' />
                             </ListItem>
-                            <ListItem button key='Dashboard'>
-                                <ListItemIcon className={classes.iconAlignStyle}><DashboardIcon /></ListItemIcon>
-                                <ListItemText primary='Dashboard' />
+                            <ListItem button key='Dashboard' to='/app/dashboard'>
+                                <Link href='/app/dashboard' color='inherit' className={classes.linkStyle}>
+                                    <ListItemIcon className={classes.iconAlignStyle}><DashboardIcon /></ListItemIcon>
+                                    <ListItemText primary='Dashboard' />
+                                </Link>
                             </ListItem>
                             <ListItem button key='Calendar'>
                                 <ListItemIcon className={classes.iconAlignStyle}><EventNoteIcon /></ListItemIcon>
@@ -326,7 +327,7 @@ export default function Dashboard(props) {
                                 </Link>
 
                             </ListItem>
-                            <List>
+                            {/* <List>
                                 <ListItem button key='Shopping List' onClick={handleToggleList}>
                                     <ListItemIcon className={classes.iconAlignStyle}><ShoppingCartIcon /></ListItemIcon>
                                     <ListItemText primary='Shopping List' />
@@ -338,7 +339,7 @@ export default function Dashboard(props) {
                                         <ListItemText primary='Grocery List' />
                                     </ListItem>
                                     : null}
-                            </List>
+                            </List> */}
                             <ListItem button key='To Do List' to='/app/todolist'>
                                 <Link href='/app/todolist' color='inherit' className={classes.linkStyle}>
                                     <ListItemIcon className={classes.iconAlignStyle}><CheckBoxIcon /></ListItemIcon>

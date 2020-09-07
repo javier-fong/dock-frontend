@@ -20,6 +20,7 @@ const googleLogin = response => api.post('/googlelogin', {
 /* -------------------- User -------------------- */
 const deleteMember = (id, payload) => api.delete(`/member/delete/${id}/${payload}`);
 const getMembers = email => api.get(`/users/${email}`);
+const addMember = (id, payload) => api.put(`/member/add/${id}`, payload);
 
 /* -------------------- To Do -------------------- */
 const getToDos = email => api.get(`/todos/${email}`);
@@ -42,7 +43,8 @@ const apis = {
     deleteToDoItem,
     updateToDoItem,
     deleteMember,
-    getMembers
+    getMembers,
+    addMember
 }
 
 export default apis

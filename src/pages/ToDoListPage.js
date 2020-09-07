@@ -2,9 +2,9 @@ import React, { useEffect, useState, useContext, Fragment } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Divider } from '@material-ui/core';
 import TodoListCard from '../components/Todo/TodoListCard';
-import api from '../components/api';
+import api from '../components/Api';
 import { UserContext } from './DashboardPage';
-import TodoListForm from '../components/Forms/TodoListForm';
+import TodoListForm from '../components/Todo/TodoListForm';
 
 export const TodosContext = React.createContext();
 
@@ -54,9 +54,10 @@ const ToDoListPage = (props) => {
         }
     }, [userEmail])
 
-    const addToDoList = async (toDoList) => {
+    const addToDoList = async (toDoList, owner) => {
         try {
             const payload = {
+                owner: owner,
                 toDoListName: toDoList,
                 email: userEmail
             }
@@ -139,6 +140,7 @@ const ToDoListPage = (props) => {
                         deleteToDoList={deleteToDoList}
                         deleteItem={deleteItem}
                         updateToDoItem={updateToDoItem}
+                        owner={toDoList.owner}
                     />
                 )}
             </div>

@@ -1,11 +1,8 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
+import React, { useState } from 'react';
 import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import TextField from '@material-ui/core/TextField';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import InputBase from '@material-ui/core/InputBase';
 
@@ -20,8 +17,9 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function SimpleMenu() {
-    const [anchorEl, setAnchorEl] = React.useState(null);
+export default function SimpleMenu(props) {
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [member, setMember] = useState('');
 
     const classes = useStyles();
 
@@ -32,6 +30,20 @@ export default function SimpleMenu() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const handleMemberSubmit = async event => {
+        event.preventDefault();
+        try {
+            const payload = {
+                members: member
+            }
+            await props.handleAddMember(payload);
+            setMember('');
+            setAnchorEl(null);
+        } catch(err) {
+            console.log(err)
+        }
+    }
 
     return (
         <div>
@@ -44,16 +56,18 @@ export default function SimpleMenu() {
                 keepMounted
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
-                autoFocus='true'
             >
                 <div className={classes.root}>
-                    <form>
+                    <form onSubmit={handleMemberSubmit}>
                         <InputBase
                             inputComponent='input'
                             placeholder="Add member"
                             inputProps={{ 'aria-label': 'add member' }}
+                            onChange={event => setMember(event.target.value)}
+                            value={member}
+                            autoFocus
                         />
-                        <IconButton color='secondary'>
+                        <IconButton color='secondary' onClick={handleMemberSubmit}>
                             <AddCircleIcon />
                         </IconButton>
                     </form>

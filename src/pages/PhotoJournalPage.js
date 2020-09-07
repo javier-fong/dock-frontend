@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext, Fragment } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import api from '../components/api';
+import api from '../components/Api';
 import { UserContext } from './DashboardPage';
 
 const PhotoJournalPage = () => {

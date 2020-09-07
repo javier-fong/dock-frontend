@@ -9,7 +9,6 @@ import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import ListIcon from '@material-ui/icons/List';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
@@ -17,6 +16,21 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import Todoitems from '../Todo/TodoItems'
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import TodoListModal from '../Todo/TodoListModal';
+import Avatar from '@material-ui/core/Avatar';
+import { purple, red, pink, blue, cyan, teal, green, orange, brown, blueGrey } from '@material-ui/core/colors';
+
+const new_purple = purple[400];
+const new_red = red[400];
+const new_pink = pink[400];
+const new_blue = blue[400];
+const new_cyan = cyan[400];
+const new_teal = teal[400];
+const new_green = green[400];
+const new_orange = orange[400];
+const new_brown = brown[400];
+const new_blueGrey = blueGrey[400];
+const colors = [new_purple, new_red, new_pink, new_blue, new_cyan, new_teal, new_green, new_orange, new_brown, new_blueGrey];
+
 
 const useStyles = makeStyles((theme) => ({
   cardStyle: {
@@ -85,6 +99,9 @@ const useStyles = makeStyles((theme) => ({
   iconButton: {
     margin: 0,
     padding: '8px'
+  },
+  avatarStyle: {
+    marginRight: theme.spacing(2)
   }
 }));
 
@@ -93,23 +110,11 @@ export default function PrimarySearchAppBar(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  // const [toggleDropDown, setToggleDropDown] = React.useState(null);
-  // const [openModal, setOpenModal] = React.useState(false);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  // const handleOpenModal = () => {
-  //   setOpenModal(true);
-  // };
-
-  // const handleDropDown = (event) => {
-  //   setToggleDropDown(event.currentTarget);
-  // };
-
-  // const handleDropDownClose = () => {
-  //   setToggleDropDown(null);
-  // };
+  const getRandomColors = () => colors[Math.floor(Math.random() * colors.length)];
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -189,14 +194,10 @@ export default function PrimarySearchAppBar(props) {
     <div className={classes.cardStyle}>
       <AppBar position="static" color='inherit'>
         <Toolbar>
-          {/* <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          > */}
-          <ListIcon className={classes.menuButton} />
-          {/* </IconButton> */}
+          {/* <ListIcon className={classes.menuButton} /> */}
+          <Avatar className={classes.avatarStyle} style={{ backgroundColor: getRandomColors() }}>
+            {props.owner.charAt(0)}
+          </Avatar>
           <Typography className={classes.title} variant="h6" noWrap>
             {props.name}
           </Typography>
@@ -213,30 +214,7 @@ export default function PrimarySearchAppBar(props) {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
-          {/* <div className={classes.cardStyle} /> */}
           <div className={classes.sectionDesktop}>
-            {/* <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            > */}
-            {/* <IconButton className={classes.iconButton} onClick={handleDropDown}>
-              <MoreVertIcon />
-            </IconButton>
-            <Menu
-              id="simple-menu"
-              anchorEl={toggleDropDown}
-              keepMounted
-              open={Boolean(toggleDropDown)}
-              onClose={handleDropDownClose}
-            >
-              <MenuItem ><AddCircleIcon style={{ marginRight: '10px' }} />Add to do</MenuItem>
-              <MenuItem ><EditIcon style={{ marginRight: '10px' }} />Edit list name</MenuItem>
-              <MenuItem ><DeleteIcon style={{ marginRight: '10px' }} />Delete list</MenuItem>
-            </Menu> */}
             <TodoListModal
               name={props.name}
               id={props.id}

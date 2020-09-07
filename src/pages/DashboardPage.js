@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Dashboard from '../components/Dashboard/Dashboard';
-import api from '../components/api';
+import api from '../components/Api';
 
 export const UserContext = React.createContext();
 
@@ -25,12 +25,22 @@ const DashboardPage = () => {
         getUserData();
     }, [userEmail])
 
-    const deleteUserMember = async member => {
+    const deleteUserMember = async payload => {
         try {
-            await api.deleteMember(userId, member);
+            await api.deleteMember(userId, payload);
             const response = await api.getMembers(userEmail);
             setUserMembers(response.data[0].members);
         } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const handleAddMember = async payload => {
+        try {
+            await api.addMember(userId, payload);
+            const response = await api.getMembers(userEmail);
+            setUserMembers(response.data[0].members);
+        } catch(err) {
             console.log(err)
         }
     }
@@ -42,7 +52,10 @@ const DashboardPage = () => {
             userId,
             userMembers
         }}>
-            <Dashboard deleteUserMember={deleteUserMember} />
+            <Dashboard 
+            deleteUserMember={deleteUserMember}
+            handleAddMember={handleAddMember}
+            />
         </UserContext.Provider>
     )
 }

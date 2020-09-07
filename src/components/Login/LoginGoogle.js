@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import GoogleLogin from 'react-google-login';
 import GoogleButton from 'react-google-button';
-import api from '../api';
+import api from '../Api';
 
 
 class LoginGoogle extends Component {
