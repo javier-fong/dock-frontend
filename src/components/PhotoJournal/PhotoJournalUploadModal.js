@@ -100,11 +100,20 @@ export default function SpringModal(props) {
 
     const [open, setOpen] = useState(false);
     const [owner, setOwner] = useState('');
+    const [toggleOwner, setToggleOwner] = useState(false);
     const [image, setImage] = useState('');
+    const [toggleImage, setToggleImage] = useState(false);
     const [caption, setCaption] = useState('');
+    const [toggleCaption, setToggleCaption] = useState(false);
 
     const handleOpen = () => {
         setOpen(true);
+        setOwner('');
+        setImage('');
+        setCaption('');
+        setToggleOwner(false);
+        setToggleImage(false);
+        setToggleCaption(false);
     };
 
     const handleClose = () => {
@@ -118,6 +127,9 @@ export default function SpringModal(props) {
     const handleFormSubmit = async event => {
         event.preventDefault();
         try {
+            if (owner === '') setToggleOwner(true);
+            if (image === '') setToggleImage(true);
+            if (caption === '') setToggleCaption(true);
             if (owner && image && caption !== '') {
                 await props.handleCreateJournalPost(owner, image, caption);
                 setOwner('');
@@ -125,7 +137,7 @@ export default function SpringModal(props) {
                 setCaption('');
                 setOpen(false);
             }
-        } catch(err) {
+        } catch (err) {
             console.log(err);
         }
     }
@@ -137,7 +149,7 @@ export default function SpringModal(props) {
                 <Typography variant='body1'>Upload</Typography>
             </Button>
 
-            {/* Edit todo item */}
+            {/* Add photo journal */}
             <Modal
                 aria-labelledby="spring-modal-title"
                 aria-describedby="spring-modal-description"
@@ -154,7 +166,7 @@ export default function SpringModal(props) {
                     <div className={classes.paper}>
                         <h4 id="spring-modal-title">Upload Photo</h4>
                         <form className={classes.formStyle} autoComplete="off" onSubmit={handleFormSubmit}>
-                            <FormControl variant="outlined" className={classes.formControlStyle}>
+                            <FormControl variant="outlined" className={classes.formControlStyle} error={toggleOwner ? true : false}>
                                 <InputLabel id="demo-simple-select-label">Posted by</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-label"
@@ -169,6 +181,7 @@ export default function SpringModal(props) {
                                         </MenuItem>
                                     )}
                                 </Select>
+                                {toggleOwner ? <FormHelperText>Required</FormHelperText> : null}
                             </FormControl>
                             <TextField
                                 id="standard-basic"
@@ -180,6 +193,9 @@ export default function SpringModal(props) {
                                 onChange={event => setImage(event.target.value)}
                                 value={image}
                                 className={classes.textFieldStyle}
+                                helperText={toggleImage ? 'Required' : null}
+                                type='url'
+                                error={toggleImage ? true : false}
                             />
                             <TextField
                                 id="standard-multiline-static"
@@ -191,6 +207,8 @@ export default function SpringModal(props) {
                                 className={classes.textFieldStyle}
                                 onChange={event => setCaption(event.target.value)}
                                 value={caption}
+                                helperText={toggleCaption ? 'Required' : null}
+                                error={toggleCaption ? true : false}
                             />
                             <div className={classes.buttonDiv}>
                                 <Button variant="contained" color="primary" className={classes.buttonStyle} onClick={handleClose}>

@@ -11,10 +11,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
 import { UserContext } from '../../pages/DashboardPage';
+import { Divider } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        padding: '2px 4px',
         display: 'flex',
         alignItems: 'center',
         width: 800,
@@ -22,12 +22,12 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: theme.spacing(3),
     },
     input: {
-        marginLeft: theme.spacing(1),
+        marginLeft: theme.spacing(2),
         flex: 1,
         width: '100%'
     },
     iconButton: {
-        // flex: '1 1'
+        marginRight: theme.spacing(1)
     },
     divider: {
         height: 28,
@@ -41,7 +41,13 @@ const useStyles = makeStyles((theme) => ({
     },
     formControl: {
         margin: theme.spacing(1),
+        marginRight: theme.spacing(2),
         minWidth: 120,
+        paddingBottom: theme.spacing(2)
+    },
+    dividerStyle: {
+        height: 50,
+        margin: 4,
     },
 }));
 
@@ -52,15 +58,21 @@ export default function CustomizedInputBase(props) {
     const { userMembers } = useContext(UserContext);
 
     const [listFormValue, setListFormValue] = useState('');
+    const [toggleListFormValue, setToggleListFormValue] = useState(false);
     const [owner, setOwner] = useState('');
+    const [toggleOwner, setToggleOwner] = useState(false);
 
     const handleFormSubmit = async event => {
         event.preventDefault();
         try {
+            if (listFormValue === '') setToggleListFormValue(true);
+            if (owner === '') setToggleOwner(true);
             if (listFormValue && owner !== '') {
                 await props.addToDoList(listFormValue, owner);
                 setListFormValue('');
                 setOwner('');
+                setToggleListFormValue(false);
+                setToggleOwner(false);
             }
         } catch (err) {
             console.log(err)
@@ -74,16 +86,18 @@ export default function CustomizedInputBase(props) {
     return (
         <Paper className={classes.root}>
             <form onSubmit={handleFormSubmit} className={classes.formStyle}>
-                <InputBase
-                    className={classes.input}
-                    inputComponent='input'
-                    placeholder="Add To Do List"
-                    inputProps={{ 'aria-label': 'add to do list' }}
-                    value={listFormValue}
-                    onChange={event => setListFormValue(event.target.value)}
-                    required
-                />
-                <FormControl required className={classes.formControl}>
+                <FormControl className={classes.input} error={toggleOwner ? true : false}>
+                    <InputBase
+                        inputComponent='input'
+                        placeholder="Add To Do List"
+                        inputProps={{ 'aria-label': 'add to do list' }}
+                        value={listFormValue}
+                        onChange={event => setListFormValue(event.target.value)}
+                        required
+                    />
+                    {toggleOwner ? <FormHelperText>Required</FormHelperText> : null}
+                </FormControl>
+                <FormControl className={classes.formControl} error={toggleListFormValue ? true : false}>
                     <InputLabel id="demo-simple-select-label" htmlFor="member-native-required">Owner</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
@@ -100,9 +114,10 @@ export default function CustomizedInputBase(props) {
                             </MenuItem>
                         )}
                     </Select>
-                    <FormHelperText>Required</FormHelperText>
+                    {toggleListFormValue ? <FormHelperText>Required</FormHelperText> : null}
                 </FormControl>
             </form>
+            <Divider className={classes.dividerStyle} orientation="vertical" />
             <IconButton color='secondary' className={classes.iconButton} onClick={handleFormSubmit}>
                 <AddCircleIcon />
             </IconButton>
