@@ -53,23 +53,24 @@ export default function CheckboxList(props) {
     setPage(value);
   };
 
-  const handleToggle = (value, id) => async () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-    if (currentIndex === -1) {
-      newChecked.push(value);
-      setIsComplete(!isComplete)
-    } else {
-      newChecked.splice(currentIndex, 1);
+  const handleToggle = (id, completed) => async () => {
+    try {
+      const payload = {
+        index: id,
+        completed: !completed
+      }
+      await props.completeToDoItem(props.id, payload);
+    } catch (err) {
+      console.log(err)
     }
-    setChecked(newChecked);
   };
 
-  // const markCompleteStyle = () => {
-  //   return {
-  //     textDecoration: toDoItems.completed ? 'line-through' : 'none',
-  //   }
-  // }
+  const markCompleteStyle = completed => {
+    return {
+      textDecoration: completed ? 'line-through' : 'none',
+      color: completed ? '#9e9e9e' : null
+    }
+  }
 
   return (
     <Fragment>
@@ -77,24 +78,24 @@ export default function CheckboxList(props) {
         {toDoItems
           .slice((page - 1) * itemsPerPage, page * itemsPerPage)
           .map((todo, index) => {
-            const labelId = `checkbox-list-label-${todo}`;
+            const labelId = `checkbox-list-label-${todo.item}`;
             return (
               <ListItem key={index} id={index} role={undefined} dense button>
                 <ListItemIcon>
                   <Checkbox
                     edge="start"
-                    checked={checked.indexOf(todo) !== -1}
+                    checked={todo.completed ? true : null}
                     tabIndex={-1}
                     disableRipple
                     inputProps={{ 'aria-labelledby': labelId }}
-                    onClick={handleToggle(todo, index)}
+                    onClick={handleToggle(index, todo.completed)}
                   />
                 </ListItemIcon>
-                <ListItemText id={labelId} primary={todo} />
+                <ListItemText id={labelId} primary={todo.item} style={markCompleteStyle(todo.completed)} />
                 <TodoItemModal
                   id={props.id}
                   index={index}
-                  description={todo}
+                  description={todo.item}
                   deleteItem={props.deleteItem}
                   updateToDoItem={props.updateToDoItem}
                 />

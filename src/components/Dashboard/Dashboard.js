@@ -30,6 +30,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
 import { purple, red, pink, blue, cyan, teal, green, orange, brown, blueGrey } from '@material-ui/core/colors';
 import DashboardMemberDropdown from './DashboardMemberDropdown';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 // Import Pages
 import { OverviewPage, ToDoListPage, PhotoJournalPage } from '../../pages';
@@ -169,7 +170,7 @@ export default function Dashboard(props) {
     const classes = useStyles();
 
     // Imported user data state
-    const { userFirstName, userMembers } = useContext(UserContext);
+    const { userMembers } = useContext(UserContext);
 
     // States
     const [open, setOpen] = useState(false);
@@ -215,6 +216,10 @@ export default function Dashboard(props) {
         handleDeleteMember(member);
     };
 
+    const logOut = () => {
+        localStorage.clear();
+        window.location.href = '/';
+    }
 
     return (
         <Router>
@@ -246,8 +251,13 @@ export default function Dashboard(props) {
                     </Typography>
                             <List style={{ marginLeft: 'auto' }}>
                                 <ListItem>
+                                    <IconButton>
+                                        <SettingsIcon />
+                                    </IconButton>
                                     {/* <Typography variant='h6' style={{ marginRight: '10px' }}>{userFirstName}</Typography> */}
-                                    <IconButton onClick={() => setDarkTheme(!darkTheme)}><InvertColorsIcon /></IconButton>
+                                    <IconButton onClick={() => setDarkTheme(!darkTheme)}>
+                                        <InvertColorsIcon />
+                                    </IconButton>
                                 </ListItem>
                             </List>
                         </Toolbar>
@@ -306,23 +316,29 @@ export default function Dashboard(props) {
                                 :
                                 null}
                             <Divider />
-                            <ListItem button key='Profile' className={classes.profileMargin}>
+                            {/* <ListItem button key='Profile' className={classes.profileMargin}>
                                 <ListItemIcon className={classes.iconAlignStyle}><AccountBoxIcon /></ListItemIcon>
                                 <ListItemText primary='Profile' />
-                            </ListItem>
-                            <ListItem button key='Dashboard' to='/app/dashboard'>
+                            </ListItem> */}
+                            <ListItem button key='Dashboard' to='/app/dashboard' className={classes.profileMargin}>
                                 <Link href='/app/dashboard' color='inherit' className={classes.linkStyle}>
-                                    <ListItemIcon className={classes.iconAlignStyle}><DashboardIcon /></ListItemIcon>
+                                    <ListItemIcon className={classes.iconAlignStyle}>
+                                        <DashboardIcon />
+                                    </ListItemIcon>
                                     <ListItemText primary='Dashboard' />
                                 </Link>
                             </ListItem>
                             <ListItem button key='Calendar'>
-                                <ListItemIcon className={classes.iconAlignStyle}><EventNoteIcon /></ListItemIcon>
+                                <ListItemIcon className={classes.iconAlignStyle}>
+                                    <EventNoteIcon />
+                                </ListItemIcon>
                                 <ListItemText primary='Calendar' />
                             </ListItem>
                             <ListItem button key='Photo Journal' to='/app/photojournal'>
                                 <Link href='/app/photojournal' color='inherit' className={classes.linkStyle}>
-                                    <ListItemIcon className={classes.iconAlignStyle}><PhotoLibraryIcon /></ListItemIcon>
+                                    <ListItemIcon className={classes.iconAlignStyle}>
+                                        <PhotoLibraryIcon />
+                                    </ListItemIcon>
                                     <ListItemText primary='Photo Journal' />
                                 </Link>
 
@@ -342,7 +358,9 @@ export default function Dashboard(props) {
                             </List> */}
                             <ListItem button key='To Do List' to='/app/todolist'>
                                 <Link href='/app/todolist' color='inherit' className={classes.linkStyle}>
-                                    <ListItemIcon className={classes.iconAlignStyle}><CheckBoxIcon /></ListItemIcon>
+                                    <ListItemIcon className={classes.iconAlignStyle}>
+                                        <CheckBoxIcon />
+                                    </ListItemIcon>
                                     <ListItemText primary='To Do List' />
                                 </Link>
                             </ListItem>
@@ -350,8 +368,10 @@ export default function Dashboard(props) {
                         {/* <Divider /> */}
                         <List className={classes.alignBottom}>
                             {['Log Out'].map((text, index) => (
-                                <ListItem button key={text}>
-                                    <ListItemIcon className={classes.iconAlignStyle}><PowerSettingsNewIcon /></ListItemIcon>
+                                <ListItem button key={text} onClick={logOut}>
+                                    <ListItemIcon className={classes.iconAlignStyle}>
+                                        <PowerSettingsNewIcon />
+                                    </ListItemIcon>
                                     <ListItemText primary={text} />
                                 </ListItem>
                             ))}

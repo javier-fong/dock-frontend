@@ -105,6 +105,7 @@ export default function SpringModal(props) {
     const handleDeleteItem = async () => {
         try {
             await props.deleteItem(props.id, props.description);
+            setOpenDelete(false);
         } catch (err) {
             console.log(err)
         }
@@ -157,7 +158,7 @@ export default function SpringModal(props) {
                                 id="standard-basic"
                                 // label="Edit item"
                                 placeholder={props.description}
-                                autoFocus='true'
+                                autoFocus={true}
                                 onChange={event => setItem(event.target.value)}
                                 value={item}
                             />

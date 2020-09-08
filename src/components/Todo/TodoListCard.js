@@ -243,6 +243,7 @@ export default function PrimarySearchAppBar(props) {
           id={props.id}
           deleteItem={props.deleteItem}
           updateToDoItem={props.updateToDoItem}
+          completeToDoItem={props.completeToDoItem}
         />
       </AppBar>
       {renderMobileMenu}

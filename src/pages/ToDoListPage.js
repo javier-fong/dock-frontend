@@ -59,7 +59,8 @@ const ToDoListPage = () => {
             const payload = {
                 owner: owner,
                 toDoListName: toDoList,
-                email: userEmail
+                email: userEmail,
+                completed: false
             }
             await api.addToDoList(payload);
             const response = await api.getToDos(userEmail);
@@ -123,6 +124,16 @@ const ToDoListPage = () => {
         }
     }
 
+    const completeToDoItem = async (id, payload) => {
+        try {
+            await api.updateToDoCompleted(id, payload);
+            const response = await api.getToDos(userEmail);
+            setToDos(response.data);
+        } catch(err) {
+            console.log(err)
+        }
+    }
+
     return (
         <Fragment>
             <TodoListForm addToDoList={addToDoList} />
@@ -140,6 +151,7 @@ const ToDoListPage = () => {
                         deleteToDoList={deleteToDoList}
                         deleteItem={deleteItem}
                         updateToDoItem={updateToDoItem}
+                        completeToDoItem={completeToDoItem}
                         owner={toDoList.owner}
                     />
                 )}

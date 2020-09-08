@@ -136,7 +136,8 @@ export default function SpringModal(props) {
     event.preventDefault();
     try {
       const payload = {
-        description: toDoItem
+        item: toDoItem,
+        completed: false
       }
       await props.addToDoItem(props.id, payload);
       setToDoItem('');
@@ -205,7 +206,7 @@ export default function SpringModal(props) {
               <TextField
                 id="standard-basic"
                 label="New item"
-                autoFocus='true'
+                autoFocus={true}
                 onChange={event => setToDoItem(event.target.value)}
                 value={toDoItem}
               />
@@ -243,7 +244,7 @@ export default function SpringModal(props) {
                 id="standard-basic"
                 label="New name"
                 placeholder={props.name}
-                autoFocus='true'
+                autoFocus={true}
                 onChange={event => setListName(event.target.value)}
                 value={listName}
               />
