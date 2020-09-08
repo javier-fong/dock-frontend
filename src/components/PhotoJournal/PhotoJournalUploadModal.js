@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column'
     },
     uploadButtonStyle: {
-        marginRight: theme.spacing(4),
+        marginRight: theme.spacing(19),
         marginBottom: theme.spacing(1),
         textTransform: 'capitalize'
     },

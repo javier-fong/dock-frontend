@@ -65,7 +65,7 @@ export default function SimpleMenu(props) {
                             inputProps={{ 'aria-label': 'add member' }}
                             onChange={event => setMember(event.target.value)}
                             value={member}
-                            autoFocus
+                            autoFocus={true}
                         />
                         <IconButton color='secondary' onClick={handleMemberSubmit}>
                             <AddCircleIcon />
