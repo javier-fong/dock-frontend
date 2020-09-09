@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'flex-start',
         flexWrap: 'wrap',
         marginTop: theme.spacing(3),
-        width: '100%',
+        // width: '100%',
         marginLeft: theme.spacing(13)
     }
 }))

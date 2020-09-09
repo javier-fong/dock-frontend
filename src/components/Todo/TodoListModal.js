@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    outline: 0
   },
   iconButton: {
     margin: 0,
@@ -199,7 +200,7 @@ export default function SpringModal(props) {
           timeout: 500,
         }}
       >
-        <Fade in={open}>
+        {/* <Fade in={open}> */}
           <div className={classes.paper}>
             <h4 id="spring-modal-title">Add New Item</h4>
             <form className={classes.formStyle} noValidate autoComplete="off" onSubmit={submitNewItem}>
@@ -220,7 +221,7 @@ export default function SpringModal(props) {
               </div>
             </form>
           </div>
-        </Fade>
+        {/* </Fade> */}
       </Modal>
 
       {/* Edit list name */}
@@ -236,7 +237,7 @@ export default function SpringModal(props) {
           timeout: 500,
         }}
       >
-        <Fade in={openEditListName}>
+        {/* <Fade in={openEditListName}> */}
           <div className={classes.paper}>
             <h4 id="spring-modal-title">Edit List Name</h4>
             <form className={classes.formStyle} noValidate autoComplete="off" onSubmit={updateListName}>
@@ -258,7 +259,7 @@ export default function SpringModal(props) {
               </div>
             </form>
           </div>
-        </Fade>
+        {/* </Fade> */}
       </Modal>
 
       {/* Delete list */}
@@ -274,7 +275,7 @@ export default function SpringModal(props) {
           timeout: 500,
         }}
       >
-        <Fade in={openDeleteList}>
+        {/* <Fade in={openDeleteList}> */}
           <div className={classes.paper} style={{ textAlign: 'center' }}>
             <h2 id="spring-modal-title">Confirm Delete</h2>
             <p>Are you sure you want to delete this list?</p>
@@ -287,7 +288,7 @@ export default function SpringModal(props) {
                 </Button>
             </div>
           </div>
-        </Fade>
+        {/* </Fade> */}
       </Modal>
     </div>
   );

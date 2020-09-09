@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
         border: '2px solid #000',
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
+        outline: 0
     },
     buttonDiv: {
         display: 'flex',
@@ -162,7 +163,7 @@ export default function SpringModal(props) {
                     timeout: 500,
                 }}
             >
-                <Fade in={open}>
+                {/* <Fade in={open}> */}
                     <div className={classes.paper}>
                         <h4 id="spring-modal-title">Upload Photo</h4>
                         <form className={classes.formStyle} autoComplete="off" onSubmit={handleFormSubmit}>
@@ -220,7 +221,7 @@ export default function SpringModal(props) {
                             </div>
                         </form>
                     </div>
-                </Fade>
+                {/* </Fade> */}
             </Modal>
         </div>
     );

@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
         border: '2px solid #000',
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
+        outline: 0
     },
     delButtonStyle: {
         margin: theme.spacing(1),
@@ -150,7 +151,7 @@ export default function SpringModal(props) {
                     timeout: 500,
                 }}
             >
-                <Fade in={openEdit}>
+                {/* <Fade in={openEdit}> */}
                     <div className={classes.paper}>
                     <h4 id="spring-modal-title">Edit Item</h4>
                         <form className={classes.formStyle} noValidate autoComplete="off" onSubmit={handleEditItem} >
@@ -172,7 +173,7 @@ export default function SpringModal(props) {
                             </div>
                         </form>
                     </div>
-                </Fade>
+                {/* </Fade> */}
             </Modal>
 
             {/* Delete todo item */}
@@ -188,7 +189,7 @@ export default function SpringModal(props) {
                     timeout: 500,
                 }}
             >
-                <Fade in={openDelete}>
+                {/* <Fade in={openDelete}> */}
                     <div className={classes.paper} style={{ textAlign: 'center' }}>
                         <h2 id="spring-modal-title">Confirm Delete</h2>
                         <p>Are you sure you want to delete this item?</p>
@@ -201,7 +202,7 @@ export default function SpringModal(props) {
                             </Button>
                         </div>
                     </div>
-                </Fade>
+                {/* </Fade> */}
             </Modal>
         </div>
     );

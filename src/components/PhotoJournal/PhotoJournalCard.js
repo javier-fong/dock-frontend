@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
 import PhotoJournalEditDelModal from '../PhotoJournal/PhotoJournalEditDelModal';
 import moment from 'moment';
+import ImageModal from './PhotoJournalImageModel';
 import { purple, red, pink, blue, cyan, teal, green, orange, brown, blueGrey } from '@material-ui/core/colors';
 
 const new_purple = purple[400];
@@ -59,14 +59,32 @@ const useStyles = makeStyles((theme) => ({
 export default function PhotoJournalCard(props) {
     const classes = useStyles();
 
+    const [openImage, setOpenImage] = useState(false);
+
     // Generate random color
     const getRandomColors = () => colors[Math.floor(Math.random() * colors.length)];
+
+    const handleOpenImage = () => {
+        setOpenImage(true);
+    }
+
+    const handleCloseImage = () => {
+        setOpenImage(false);
+    }
 
     return (
         <Card className={classes.root}>
             <CardMedia
                 className={classes.media}
                 image={props.image}
+                onClick={handleOpenImage}
+            />
+            <ImageModal
+                open={openImage}
+                setModalClose={handleCloseImage}
+                modalState={openImage}
+                image={props.image}
+                caption={props.caption}
             />
             <CardHeader
                 avatar={

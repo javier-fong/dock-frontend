@@ -154,11 +154,12 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
-        marginLeft: theme.spacing(1)
+        marginBottom: theme.spacing(2)
     },
     chipDivStyle: {
         display: 'flex',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        marginTop: theme.spacing(1)
     },
     chipStyle: {
         marginRight: theme.spacing(1),
@@ -170,7 +171,7 @@ export default function Dashboard(props) {
     const classes = useStyles();
 
     // Imported user data state
-    const { userMembers } = useContext(UserContext);
+    const { userMembers, userPicture } = useContext(UserContext);
 
     // States
     const [open, setOpen] = useState(false);
@@ -286,10 +287,10 @@ export default function Dashboard(props) {
                         <List>
                             <ListItem className={classes.avatarAlign}>
                                 {open ?
-                                    <Avatar className={classes.openAvatar} src='https://i.pinimg.com/originals/22/96/b7/2296b76fcbad3dd2764033c667dde33c.png'>
+                                    <Avatar className={classes.openAvatar} src={userPicture}>
                                     </Avatar>
                                     :
-                                    <Avatar className={classes.closeAvatar} src='https://i.pinimg.com/originals/22/96/b7/2296b76fcbad3dd2764033c667dde33c.png'>
+                                    <Avatar className={classes.closeAvatar} src={userPicture}>
                                     </Avatar>}
                             </ListItem>
                             {open ?
@@ -307,6 +308,7 @@ export default function Dashboard(props) {
                                                 value={member}
                                                 onDelete={() => handleDelete(member)}
                                                 className={classes.chipStyle}
+                                                color="secondary"
                                                 style={{ backgroundColor: getRandomColors() }}
                                             />
                                         )}

@@ -9,6 +9,7 @@ const DashboardPage = () => {
     const [userEmail, setUserEmail] = useState('');
     const [userId, setUserId] = useState('');
     const [userMembers, setUserMembers] = useState([]);
+    const [userPicture, setUserPicture] = useState('');
 
     useEffect(() => {
         const getUserData = async () => {
@@ -16,6 +17,7 @@ const DashboardPage = () => {
             await setUserEmail(userData.email);
             await setUserFirstName(userData.firstName);
             await setUserId(userData._id);
+            await setUserPicture(userData.picture);
             
             if (userEmail) {
                 const response = await api.getMembers(userEmail);
@@ -50,7 +52,8 @@ const DashboardPage = () => {
             userFirstName,
             userEmail,
             userId,
-            userMembers
+            userMembers,
+            userPicture
         }}>
             <Dashboard 
             deleteUserMember={deleteUserMember}

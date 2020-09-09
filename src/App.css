@@ -137,4 +137,12 @@
   margin-bottom: 30px
 }
 
-/* ------------------ Todo Section ------------------ */
+/* ------------------ Register Section ------------------ */
+
+.register {
+  width: 100%;
+  height: 100vh;
+  background-image: url(https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1652&q=80);
+  background-position: center top;
+  background-size: cover;
+}
