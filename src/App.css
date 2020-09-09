@@ -62,7 +62,7 @@
 .hero {
   width: 100%;
   height: 100vh;
-  background-image: url(https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&auto=format&fit=crop&w=2089&q=80);
+  background-image: url(https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1652&q=80);
   background-position: center top;
   background-size: cover;
 }
@@ -124,19 +124,17 @@
 .login {
   width: 100%;
   height: 100vh;
-  background-image: url(https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&auto=format&fit=crop&w=2089&q=80);
+  background-image: url(https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1652&q=80);
   background-position: center top;
   background-size: cover;
 }
 
-.login .login-div {
-  position: absolute;
+.login .loginGoogle-div {
   width: 100%;
-  height: 100%;
-  text-align: center;
   display: flex;
   justify-content: center;
-  align-items: center;
+  margin-top: 18px;
+  margin-bottom: 30px
 }
 
 /* ------------------ Todo Section ------------------ */

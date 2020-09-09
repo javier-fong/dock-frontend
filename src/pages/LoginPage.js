@@ -1,12 +1,14 @@
 import React, { Fragment } from 'react';
-import LoginGoogle from '../components/Login/LoginGoogle';
+import LoginForm from '../components/Login/LoginForm';
 import HomePageNavBar from '../components/NavBar/HomePageNavBar';
 
 const LoginPage = () => {
     return (
         <Fragment>
             <HomePageNavBar />
-            <LoginGoogle />
+            <section className='login'>
+                <LoginForm />
+            </section>
         </Fragment>
     )
 }
