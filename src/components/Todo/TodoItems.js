@@ -33,11 +33,9 @@ export default function CheckboxList(props) {
 
   // States
   const classes = useStyles();
-  const [checked, setChecked] = useState([0]);
   const itemsPerPage = 5;
   const [page, setPage] = useState(1);
   const [noOfPages, setNoOfPages] = useState(null);
-  const [isComplete, setIsComplete] = useState(null);
 
   const toDoItems = props.toDoItems;
 
@@ -85,7 +83,7 @@ export default function CheckboxList(props) {
                   <Checkbox
                     edge="start"
                     checked={todo.completed ? true : null}
-                    tabIndex={-1}
+                    // tabIndex={-1}
                     disableRipple
                     inputProps={{ 'aria-labelledby': labelId }}
                     onClick={handleToggle(index, todo.completed)}

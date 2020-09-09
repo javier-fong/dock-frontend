@@ -13,16 +13,20 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center'
     },
     paper: {
-        minWidth: 800,
+        width: 1000,
+        height: 'auto',
         // backgroundColor: theme.palette.background.paper,
         // boxShadow: theme.shadows[5]
         textAlign: 'center',
-        outline: 0
+        outline: 0,
     },
     imageStyle: {
-        width: '100%',
+        width: 1000,
         height: 'auto',
         marginBottom: theme.spacing(5)
+    },
+    captionStyle: {
+        wordWrap: 'break-word'
     }
 }));
 
@@ -75,12 +79,14 @@ export default function SpringModal(props) {
                 }}
             >
                 {/* <Fade in={props.modalState} style={{ outline: 'none' }}> */}
-                    <div className={classes.paper}>
-                        <img src={props.image} alt='' className={classes.imageStyle} />
+                <div className={classes.paper}>
+                    <img src={props.image} alt='' className={classes.imageStyle} />
+                    <div className={classes.captionStyle}>
                         <Typography variant="body1" color="textSecondary" component="p">
                             {props.caption}
                         </Typography>
                     </div>
+                </div>
                 {/* </Fade> */}
             </Modal>
         </div>

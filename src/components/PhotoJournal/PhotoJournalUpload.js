@@ -9,7 +9,8 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'flex-end',
         backgroundColor: 'transparent',
-        boxShadow: 'none'
+        boxShadow: 'none',
+        marginBottom: theme.spacing(1.8)
     }   
 }))
 

@@ -143,6 +143,7 @@ export default function SpringModal(props) {
       await props.addToDoItem(props.id, payload);
       setToDoItem('');
       setOpen(false);
+      setToggleDropDown(null);
     } catch (err) {
       console.log(err)
     }
@@ -157,6 +158,7 @@ export default function SpringModal(props) {
       await props.updateToDoListName(props.id, payload);
       setOpenEditListName(false);
       setListName('');
+      setToggleDropDown(null);
     } catch (err) {
       console.log(err)
     }

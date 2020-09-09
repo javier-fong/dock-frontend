@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column'
     },
     uploadButtonStyle: {
-        marginRight: theme.spacing(19),
+        marginRight: theme.spacing(15),
         marginBottom: theme.spacing(1),
         textTransform: 'capitalize'
     },
@@ -145,7 +145,7 @@ export default function SpringModal(props) {
 
     return (
         <div>
-            <Button className={classes.uploadButtonStyle} onClick={handleOpen}>
+            <Button variant='outlined' className={classes.uploadButtonStyle} onClick={handleOpen}>
                 <PublishIcon className={classes.iconStyle} />
                 <Typography variant='body1'>Upload</Typography>
             </Button>

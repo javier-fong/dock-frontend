@@ -18,7 +18,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
@@ -175,7 +174,7 @@ export default function Dashboard(props) {
 
     // States
     const [open, setOpen] = useState(false);
-    const [toggle, toggleList] = useState(false);
+    // const [toggle, toggleList] = useState(false);
     const [darkTheme, setDarkTheme] = useState(true);
 
     const getRandomColors = () => colors[Math.floor(Math.random() * colors.length)];
@@ -201,9 +200,9 @@ export default function Dashboard(props) {
         setOpen(false);
     };
 
-    const handleToggleList = () => {
-        toggleList(!toggle);
-    }
+    // const handleToggleList = () => {
+    //     toggleList(!toggle);
+    // }
 
     const handleDeleteMember = async member => {
         try {

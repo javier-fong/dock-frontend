@@ -13,7 +13,7 @@ const DashboardPage = () => {
 
     useEffect(() => {
         const getUserData = async () => {
-            const userData = JSON.parse(localStorage.getItem('login'));
+            const userData = await JSON.parse(localStorage.getItem('login'));
             await setUserEmail(userData.email);
             await setUserFirstName(userData.firstName);
             await setUserId(userData._id);

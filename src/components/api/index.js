@@ -35,6 +35,8 @@ const updateToDoItem = (id, payload) => api.put(`/todo/item/update/${id}`, paylo
 /* ------------------------------- Photo Journal ------------------------------- */
 const createJournalPost = payload => api.post('/journalpost/create', payload);
 const getJournalPosts = email => api.get(`/journalposts/${email}`);
+const editJournalCaption = (id, payload) => api.put(`/journalpost/edit/${id}`, payload);
+const deleteJournalPost = id => api.delete(`/journalpost/delete/${id}`);
 
 const apis = {
     googleLogin,
@@ -50,7 +52,9 @@ const apis = {
     getMembers,
     addMember,
     createJournalPost,
-    getJournalPosts
+    getJournalPosts,
+    editJournalCaption,
+    deleteJournalPost
 }
 
 export default apis

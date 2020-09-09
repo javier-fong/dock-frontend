@@ -40,6 +40,7 @@ const ToDoListPage = () => {
     // States
     const [toDoLists, setToDos] = useState([]);
 
+    // Get all the To Dos from user
     useEffect(() => {
         if (userEmail) {
             api.getToDos(userEmail)
@@ -54,6 +55,7 @@ const ToDoListPage = () => {
         }
     }, [userEmail])
 
+    // Add a To Do list
     const addToDoList = async (toDoList, owner) => {
         try {
             const payload = {
@@ -70,6 +72,7 @@ const ToDoListPage = () => {
         }
     }
 
+    // Add a To Do item
     const addToDoItem = async (id, payload) => {
         try {
             await api.addToDoItem(id, payload);
@@ -80,6 +83,7 @@ const ToDoListPage = () => {
         }
     }
 
+    // Edit To Do list name
     const updateToDoListName = async (id, payload) => {
         try {
             await api.updateToDoListName(id, payload);
@@ -90,6 +94,7 @@ const ToDoListPage = () => {
         }
     }
 
+    // Delete a To Do list
     const deleteToDoList = async id => {
         try {
             await api.deleteToDoList(id);
@@ -104,6 +109,7 @@ const ToDoListPage = () => {
         }
     }
 
+    // Delete a To Do item
     const deleteItem = async (id, payload) => {
         try {
             await api.deleteToDoItem(id, payload);
@@ -114,6 +120,7 @@ const ToDoListPage = () => {
         }
     }
 
+    // Edit a To Do item
     const updateToDoItem = async (id, payload) => {
         try {
             await api.updateToDoItem(id, payload);
@@ -124,6 +131,7 @@ const ToDoListPage = () => {
         }
     }
 
+    // Mark complete a To Do item
     const completeToDoItem = async (id, payload) => {
         try {
             await api.updateToDoCompleted(id, payload);

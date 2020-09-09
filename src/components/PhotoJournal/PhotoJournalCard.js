@@ -3,11 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import PhotoJournalEditDelModal from '../PhotoJournal/PhotoJournalEditDelModal';
 import moment from 'moment';
 import ImageModal from './PhotoJournalImageModel';
+import Typography from '@material-ui/core/Typography';
 import { purple, red, pink, blue, cyan, teal, green, orange, brown, blueGrey } from '@material-ui/core/colors';
 
 const new_purple = purple[400];
@@ -24,7 +24,7 @@ const colors = [new_purple, new_red, new_pink, new_blue, new_cyan, new_teal, new
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        maxWidth: 360,
+        width: 375,
         marginLeft: theme.spacing(3),
         marginBottom: theme.spacing(4),
         backgroundColor: 'transparent',
@@ -52,7 +52,14 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: '-10px'
     },
     classHeaderStyle: {
-        textAlign: 'left',
+        width: '100%',
+        textAlign: 'left'
+    },
+    cardHeaderRoot: {
+        overflow: "hidden"
+    },
+    cardHeaderContent: {
+        overflow: "hidden"
     }
 }));
 
@@ -93,17 +100,25 @@ export default function PhotoJournalCard(props) {
                     </Avatar>
                 }
                 action={
-                    <PhotoJournalEditDelModal />
+                    <PhotoJournalEditDelModal
+                        caption={props.caption}
+                        id={props.id}
+                        editCaption={props.editCaption}
+                        deletePost={props.deletePost}
+                    />
                 }
-                title={props.owner}
+                title={
+                    <Typography noWrap gutterBottom variant="h6" style={{ marginBottom: 0 }}>
+                        {props.caption}
+                    </Typography>
+                }
                 subheader={moment(props.date).format('MMMM Do YYYY, h:mm:ss a')}
                 className={classes.classHeaderStyle}
+                classes={{
+                    root: classes.cardHeaderRoot,
+                    content: classes.cardHeaderContent
+                }}
             />
-            {/* <CardContent>
-                <Typography variant="body2" color="textSecondary" component="p" style={{ textAlign: 'left' }}>
-                    {props.caption}
-                </Typography>
-            </CardContent> */}
         </Card>
     );
 }
