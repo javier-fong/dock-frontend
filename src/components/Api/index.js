@@ -1,7 +1,7 @@
 import Axios from 'axios';
 
 const api = Axios.create({
-    withCredentials: true,
+    // withCredentials: true,
     baseURL: process.env.REACT_APP_MONGODB_URL
     // baseURL: 'http://localhost:5000',
 });
