@@ -7,7 +7,11 @@ class LoginGoogle extends Component {
 
     responseSuccessGoogle = async response => {
         console.log(response);
-        await api.googleLogin(response);
+        try {
+            await api.googleLogin(response);
+        } catch(err) {
+            console.log(err);
+        }
     };
 
     responseFailureGoogle = response => {

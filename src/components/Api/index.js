@@ -7,16 +7,27 @@ const api = Axios.create({
 });
 
 /* -------------------- Google Login -------------------- */
-const googleLogin = response => api.post('/googlelogin', {
-    tokenId: response.tokenId
-}).then(response => {
-    console.log('Google login success', response);
-    localStorage.setItem('login', JSON.stringify(response.data.user));
-    console.log(response.data)
-    window.location.href = '/app/dashboard';
-}).catch(err => {
-    console.log(err);
-})
+// const googleLogin = response => api.post('/googlelogin', {
+//     tokenId: response.tokenId
+// }).then(response => {
+//     console.log('Google login success', response);
+//     localStorage.setItem('login', JSON.stringify(response.data.user));
+//     console.log(response.data)
+//     window.location.href = '/app/dashboard';
+// }).catch(err => {
+//     console.log(err);
+// })
+const googleLogin = async response => {
+    try {
+        const result = await api.post('/googlelogin', { tokenId: response.tokenId });
+        console.log('Google login success', result);
+        await localStorage.setItem('login', JSON.stringify(result.data.user));
+        console.log(result.data)
+        window.location.href = '/app/dashboard';
+    } catch(err) {
+        console.log(err)
+    }
+}
 
 /* ------------------------------- User ------------------------------- */
 const deleteMember = (id, payload) => api.delete(`/member/delete/${id}/${payload}`);
