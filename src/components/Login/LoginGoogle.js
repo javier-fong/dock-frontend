@@ -3,12 +3,12 @@ import GoogleLogin from 'react-google-login';
 import GoogleButton from 'react-google-button';
 import api from '../Api';
 
-
 class LoginGoogle extends Component {
 
-    responseSuccessGoogle = response => {
+    responseSuccessGoogle = async response => {
         console.log(response);
-        api.googleLogin(response);
+        await api.googleLogin(response);
+        window.location.href = '/app/dashboard';
     };
 
     responseFailureGoogle = response => {
