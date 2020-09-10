@@ -12,8 +12,8 @@ const googleLogin = response => api.post('/googlelogin', {
 }).then(response => {
     console.log('Google login success', response);
     localStorage.setItem('login', JSON.stringify(response.data.user));
-    window.location.href = '/app/dashboard';
     console.log(response.data)
+    window.location.href = '/app/dashboard';
 }).catch(err => {
     console.log(err);
 })

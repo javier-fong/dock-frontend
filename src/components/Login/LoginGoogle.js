@@ -8,7 +8,6 @@ class LoginGoogle extends Component {
     responseSuccessGoogle = async response => {
         console.log(response);
         await api.googleLogin(response);
-        window.location.href = '/app/dashboard';
     };
 
     responseFailureGoogle = response => {
