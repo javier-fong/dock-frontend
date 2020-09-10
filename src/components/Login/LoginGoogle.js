@@ -22,7 +22,7 @@ class LoginGoogle extends Component {
         return (
             <div className='loginGoogle-div'>
                 <GoogleLogin
-                    clientId="443830178449-c1j7calc64mtia51msdfv1gmguu2rj4p.apps.googleusercontent.com"
+                    clientId="443830178449-cbino10bf0idg4tjgse0povb8tdok0a4.apps.googleusercontent.com"
                     render={renderProps => (
                         <GoogleButton onClick={renderProps.onClick} disabled={renderProps.disabled}> </GoogleButton>
                     )}
