@@ -22,7 +22,7 @@ const googleLogin = async response => {
     try {
         const result = await api.post('/googlelogin', { tokenId: response.tokenId });
         console.log('Google login success', result);
-        await localStorage.setItem('login', JSON.stringify(result.data.user));
+        localStorage.setItem('login', JSON.stringify(result.data.user));
         console.log(result.data)
         window.location.href = '/app/dashboard';
     } catch(err) {
