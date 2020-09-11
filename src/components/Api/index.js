@@ -55,6 +55,7 @@ const getOneJournalPost = email => api.get(`/onejournalpost/${email}`);
 /* ------------------------------- Calendar ------------------------------- */
 const createCalendarEvent = payload => api.post('/event', payload);
 const getCalendarEvents = email => api.get(`/events/${email}`);
+const getOneCalendarEvent = email => api.get(`/oneevent/${email}`);
 
 const apis = {
     googleLogin,
@@ -75,7 +76,8 @@ const apis = {
     deleteJournalPost,
     createCalendarEvent,
     getCalendarEvents,
-    getOneJournalPost
+    getOneJournalPost,
+    getOneCalendarEvent
 }
 
 export default apis

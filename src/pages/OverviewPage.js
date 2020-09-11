@@ -6,19 +6,23 @@ import OverviewCard from '../components/Overview/OverviewCard';
 import { UserContext } from '../pages/DashboardPage';
 import api from '../components/Api';
 import OverviewPhoto from '../components/Overview/OverviewPhoto';
+import OverviewCalendar from '../components/Overview/OverviewCalendar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    height: '100vh',
+    height: '80vh',
   },
   paper: {
     padding: theme.spacing(2),
-    textAlign: 'center',
+    textAlign: 'left',
     color: theme.palette.text.secondary,
+    height: '100%'
   },
   gridStyle: {
-    marginBottom: theme.spacing(3)
+    marginBottom: theme.spacing(3),
+    // display: 'flex',
+    // justifyContent: 'space-around'
   }
 }));
 
@@ -29,6 +33,7 @@ export default function Overview() {
   const { userEmail } = useContext(UserContext);
 
   const [journalPost, setJournalPost] = useState([]);
+  const [calendarEvent, setCalendarEvent] = useState([]);
 
   useEffect(() => {
     if (userEmail) {
@@ -42,23 +47,47 @@ export default function Overview() {
     }
   }, [userEmail])
 
+  useEffect(() => {
+    if (userEmail) {
+      api.getOneCalendarEvent(userEmail).then(res => {
+        setCalendarEvent(res.data)
+      }).catch(err => {
+        console.log(err)
+      })
+    } else {
+      return undefined;
+    }
+  }, [userEmail])
+
   return (
     <div className={classes.root}>
       <Grid container spacing={4} className={classes.gridStyle}>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <Paper className={classes.paper}>
-              {journalPost.map(post => 
+              {journalPost.map(post =>
                 <OverviewPhoto 
                   caption={post.caption}
                   image={post.image}
+                  owner={post.owner}
                 />  
               )}
           </Paper>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
+          <Paper className={classes.paper}>
+            {calendarEvent.map(event => 
+              <OverviewCalendar
+                start={event.start}
+                end={event.end}
+                title={event.title}
+              />
+            )}
+          </Paper>
+        </Grid>
+        <Grid item xs={3}>
           <Paper className={classes.paper}><OverviewCard /></Paper>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <Paper className={classes.paper}><OverviewCard /></Paper>
         </Grid>
       </Grid>
