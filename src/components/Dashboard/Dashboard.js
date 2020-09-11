@@ -32,7 +32,7 @@ import DashboardMemberDropdown from './DashboardMemberDropdown';
 import SettingsIcon from '@material-ui/icons/Settings';
 
 // Import Pages
-import { OverviewPage, ToDoListPage, PhotoJournalPage } from '../../pages';
+import { OverviewPage, ToDoListPage, PhotoJournalPage, CalendarPage } from '../../pages';
 
 // Import state
 import { UserContext } from '../../pages/DashboardPage';
@@ -329,11 +329,13 @@ export default function Dashboard(props) {
                                     <ListItemText primary='Dashboard' />
                                 </Link>
                             </ListItem>
-                            <ListItem button key='Calendar'>
-                                <ListItemIcon className={classes.iconAlignStyle}>
-                                    <EventNoteIcon />
-                                </ListItemIcon>
-                                <ListItemText primary='Calendar' />
+                            <ListItem button key='Calendar' to='/app/calendar'>
+                                <Link href='/app/calendar' color='inherit' className={classes.linkStyle}>
+                                    <ListItemIcon className={classes.iconAlignStyle}>
+                                        <EventNoteIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary='Calendar' />
+                                </Link>
                             </ListItem>
                             <ListItem button key='Photo Journal' to='/app/photojournal'>
                                 <Link href='/app/photojournal' color='inherit' className={classes.linkStyle}>
@@ -387,6 +389,7 @@ export default function Dashboard(props) {
                                 <Route path='/app/dashboard' component={OverviewPage} />
                                 <Route path='/app/todolist' component={ToDoListPage} />
                                 <Route path='/app/photojournal' component={PhotoJournalPage} />
+                                <Route path='/app/calendar' component={CalendarPage} />
                             </main>
                         </React.Fragment>
                     </Switch>

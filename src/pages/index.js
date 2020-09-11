@@ -4,6 +4,7 @@ import ToDoListPage from './ToDoListPage';
 import OverviewPage from './OverviewPage';
 import PhotoJournalPage from './PhotoJournalPage';
 import RegisterPage from './RegisterPage';
+import CalendarPage from './CalendarPage';
 
 export {
     LoginPage,
@@ -11,5 +12,6 @@ export {
     DashboardPage,
     ToDoListPage,
     OverviewPage,
-    PhotoJournalPage
+    PhotoJournalPage,
+    CalendarPage
 }
