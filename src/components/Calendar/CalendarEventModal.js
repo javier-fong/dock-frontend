@@ -1,10 +1,8 @@
-import React, { useState, useContext } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
-import { useSpring, animated } from 'react-spring/web.cjs'; // web.cjs is required for IE 11 support
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
@@ -16,8 +14,6 @@ import {
     KeyboardTimePicker,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
-
-import { UserContext } from '../../pages/DashboardPage';
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -62,51 +58,20 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const Fade = React.forwardRef(function Fade(props, ref) {
-    const { in: open, children, onEnter, onExited, ...other } = props;
-    const style = useSpring({
-        from: { opacity: 0 },
-        to: { opacity: open ? 1 : 0 },
-        onStart: () => {
-            if (open && onEnter) {
-                onEnter();
-            }
-        },
-        onRest: () => {
-            if (!open && onExited) {
-                onExited();
-            }
-        },
-    });
-
-    return (
-        <animated.div ref={ref} style={style} {...other}>
-            {children}
-        </animated.div>
-    );
-});
-
-Fade.propTypes = {
-    children: PropTypes.element,
-    in: PropTypes.bool.isRequired,
-    onEnter: PropTypes.func,
-    onExited: PropTypes.func,
-};
-
 export default function SpringModal(props) {
     const classes = useStyles();
-
-    // Imported user data state
-    const { userMembers } = useContext(UserContext);
 
     const [open, setOpen] = useState(false);
     const [title, setTitle] = useState('');
     const [toggletitle, setToggletitle] = useState(false);
-    const [selectedDate, setSelectedDate] = React.useState(new Date());
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
 
     const handleOpen = () => {
         setOpen(true);
         setTitle('');
+        setStartDate(new Date());
+        setEndDate(new Date());
         setToggletitle(false);
     };
 
@@ -114,8 +79,12 @@ export default function SpringModal(props) {
         setOpen(false);
     };
 
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
+    const handleStartDateChange = (date) => {
+        setStartDate(date);
+    };
+
+    const handleEndDateChange = (date) => {
+        setEndDate(date);
     };
 
     const handleFormSubmit = async event => {
@@ -123,8 +92,10 @@ export default function SpringModal(props) {
         try {
             if (title === '') setToggletitle(true);
             if (title !== '') {
-                await props.handleCreateJournalPost(title);
+                await props.createEvent(title, startDate, endDate);
                 setTitle('');
+                setStartDate(new Date());
+                setEndDate(new Date());
                 setOpen(false);
             }
         } catch (err) {
@@ -165,8 +136,8 @@ export default function SpringModal(props) {
                                     margin="normal"
                                     id="date-picker-inline"
                                     label='Start date'
-                                    value={selectedDate}
-                                    onChange={handleDateChange}
+                                    value={startDate}
+                                    onChange={handleStartDateChange}
                                     KeyboardButtonProps={{
                                         'aria-label': 'change date',
                                     }}
@@ -176,8 +147,8 @@ export default function SpringModal(props) {
                                     margin="normal"
                                     id="time-picker"
                                     label='Start time'
-                                    value={selectedDate}
-                                    onChange={handleDateChange}
+                                    value={startDate}
+                                    onChange={handleStartDateChange}
                                     KeyboardButtonProps={{
                                         'aria-label': 'change time',
                                     }}
@@ -190,8 +161,8 @@ export default function SpringModal(props) {
                                     margin="normal"
                                     id="date-picker-inline"
                                     label='End date'
-                                    value={selectedDate}
-                                    onChange={handleDateChange}
+                                    value={endDate}
+                                    onChange={handleEndDateChange}
                                     KeyboardButtonProps={{
                                         'aria-label': 'change date',
                                     }}
@@ -201,8 +172,8 @@ export default function SpringModal(props) {
                                     margin="normal"
                                     id="time-picker"
                                     label='End time'
-                                    value={selectedDate}
-                                    onChange={handleDateChange}
+                                    value={endDate}
+                                    onChange={handleEndDateChange}
                                     KeyboardButtonProps={{
                                         'aria-label': 'change time',
                                     }}
@@ -225,10 +196,10 @@ export default function SpringModal(props) {
                         <div className={classes.buttonDiv}>
                             <Button variant="contained" color="primary" className={classes.buttonStyle} onClick={handleClose}>
                                 Close
-                                </Button>
+                            </Button>
                             <Button variant="contained" color="secondary" className={classes.buttonStyle} onClick={handleFormSubmit}>
                                 Create
-                                </Button>
+                            </Button>
                         </div>
                     </form>
                 </div>

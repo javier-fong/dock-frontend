@@ -50,6 +50,11 @@ const createJournalPost = payload => api.post('/journalpost/create', payload);
 const getJournalPosts = email => api.get(`/journalposts/${email}`);
 const editJournalCaption = (id, payload) => api.put(`/journalpost/edit/${id}`, payload);
 const deleteJournalPost = id => api.delete(`/journalpost/delete/${id}`);
+const getOneJournalPost = email => api.get(`/onejournalpost/${email}`);
+
+/* ------------------------------- Calendar ------------------------------- */
+const createCalendarEvent = payload => api.post('/event', payload);
+const getCalendarEvents = email => api.get(`/events/${email}`);
 
 const apis = {
     googleLogin,
@@ -67,7 +72,10 @@ const apis = {
     createJournalPost,
     getJournalPosts,
     editJournalCaption,
-    deleteJournalPost
+    deleteJournalPost,
+    createCalendarEvent,
+    getCalendarEvents,
+    getOneJournalPost
 }
 
 export default apis

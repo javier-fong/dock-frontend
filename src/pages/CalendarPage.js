@@ -2,10 +2,10 @@ import React from 'react';
 import Calendar from '../components/Calendar/Calendar';
 import { makeStyles } from '@material-ui/core/styles';
 
+
 const useStyles = makeStyles((theme) => ({
     calendarDiv: {
-        margin: theme.spacing(4),
-        marginTop: theme.spacing(1)
+        margin: theme.spacing(2, 10, 0, 10)
     }
 }));
 
