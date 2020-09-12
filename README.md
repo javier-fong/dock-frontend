@@ -16,7 +16,12 @@ The full demo of this app can be found here: [http://dock-frontend.herokuapp.com
 - NodeJS
 - Express
 - React
+- React Big Calendar
 - React Hooks
-- Google Login
+- React Google Login
 - Material UI
 - Moment.js
+
+## Difficulties Faced
+ 1. **CORS issue**
+ > 1 of the major difficulties faced was CORS. It took me a lot time to solve the CORS policy issue even when pasting in code that works in previous projects.
