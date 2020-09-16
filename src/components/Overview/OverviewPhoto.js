@@ -25,7 +25,10 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: 'transparent',
         boxShadow: 'none',
         // margin: theme.spacing(2),
-        height: '100%'
+        height: '100%',
+        margin: theme.spacing(3),
+        marginBottom: theme.spacing(1),
+        width: 400
     },
     media: {
         // height: 0,
