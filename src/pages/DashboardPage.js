@@ -18,7 +18,7 @@ const DashboardPage = () => {
             await setUserFirstName(userData.firstName);
             await setUserId(userData._id);
             await setUserPicture(userData.picture);
-            
+
             if (userEmail) {
                 const response = await api.getMembers(userEmail);
                 setUserMembers(response.data[0].members);
@@ -42,7 +42,7 @@ const DashboardPage = () => {
             await api.addMember(userId, payload);
             const response = await api.getMembers(userEmail);
             setUserMembers(response.data[0].members);
-        } catch(err) {
+        } catch (err) {
             console.log(err)
         }
     }
@@ -55,9 +55,9 @@ const DashboardPage = () => {
             userMembers,
             userPicture
         }}>
-            <Dashboard 
-            deleteUserMember={deleteUserMember}
-            handleAddMember={handleAddMember}
+            <Dashboard
+                deleteUserMember={deleteUserMember}
+                handleAddMember={handleAddMember}
             />
         </UserContext.Provider>
     )

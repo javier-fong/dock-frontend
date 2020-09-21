@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
         height: '100%',
         margin: theme.spacing(3),
         marginBottom: theme.spacing(1),
-        width: 400
+        width: 600
     },
     media: {
         // height: 0,

@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: 'none'
   },
   gridStyle: {
-    marginBottom: theme.spacing(3),
+    marginBottom: theme.spacing(3)
   },
   headerStyle: {
     marginLeft: theme.spacing(3),
@@ -186,7 +186,7 @@ export default function Overview() {
                 </Link>
               </div>
             </div>
-            <div style={{ display: 'flex', width: '100%' }}>
+            <div style={{ display: 'flex', width: '100%', justifyContent: 'space-around' }}>
               {journalPosts.map((post, index) =>
                 <OverviewPhoto
                   key={post._id}

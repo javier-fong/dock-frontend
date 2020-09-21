@@ -36,6 +36,7 @@ const getMembers = email => api.get(`/users/${email}`);
 const addMember = (id, payload) => api.put(`/member/add/${id}`, payload);
 const registerUser = payload => api.post('/register', payload);
 const loginUser = payload => api.post('/login', payload);
+const getUser = () => api.get('/user', { withCredentials: true });
 
 /* ------------------------------- To Do ------------------------------- */
 const getToDos = email => api.get(`/todos/${email}`);
@@ -81,7 +82,8 @@ const apis = {
     getThreeJournalPosts,
     getThreeToDos,
     registerUser,
-    loginUser
+    loginUser,
+    getUser
 }
 
 export default apis

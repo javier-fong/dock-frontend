@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,6 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import LoginGoogle from './LoginGoogle';
+import api from '../Api';
+import Alert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -41,11 +43,40 @@ const useStyles = makeStyles((theme) => ({
     forgetPwStyle: {
         display: 'flex',
         justifyContent: 'space-between'
+    },
+    alertStyle: {
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(1)
     }
 }));
 
 export default function SignIn() {
     const classes = useStyles();
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState(false);
+
+    const handleFormSubmit = async event => {
+        event.preventDefault();
+
+        try {
+            const payload = {
+                email,
+                password
+            }
+            const response = await api.loginUser(payload);
+
+            if (response.status === 200) {
+                localStorage.setItem('login', JSON.stringify(response.data));
+                window.location.href = '/app/dashboard'
+            }
+
+        } catch(err) {
+            console.log(err)
+            setError(true)
+        }
+    }
 
     return (
         <Container component="main" maxWidth="xs" className={classes.container}>
@@ -58,7 +89,8 @@ export default function SignIn() {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <form className={classes.form} noValidate>
+                    {error ? <Alert severity="warning" className={classes.alertStyle}>Either email or password wrong</Alert> : null}
+                    <form className={classes.form} onSubmit={handleFormSubmit}>
                         <TextField
                             variant="outlined"
                             margin="normal"
@@ -69,6 +101,8 @@ export default function SignIn() {
                             name="email"
                             autoComplete="email"
                             autoFocus
+                            value={email}
+                            onChange={event => setEmail(event.target.value)}
                         />
                         <TextField
                             variant="outlined"
@@ -80,6 +114,8 @@ export default function SignIn() {
                             type="password"
                             id="password"
                             autoComplete="current-password"
+                            value={password}
+                            onChange={event => setPassword(event.target.value)}
                         />
                         <FormControlLabel
                             control={<Checkbox value="remember" color="primary" />}
