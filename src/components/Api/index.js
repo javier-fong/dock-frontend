@@ -34,6 +34,8 @@ const googleLogin = async response => {
 const deleteMember = (id, payload) => api.delete(`/member/delete/${id}/${payload}`);
 const getMembers = email => api.get(`/users/${email}`);
 const addMember = (id, payload) => api.put(`/member/add/${id}`, payload);
+const registerUser = payload => api.post('/register', payload);
+const loginUser = payload => api.post('/login', payload);
 
 /* ------------------------------- To Do ------------------------------- */
 const getToDos = email => api.get(`/todos/${email}`);
@@ -77,7 +79,9 @@ const apis = {
     createCalendarEvent,
     getCalendarEvents,
     getThreeJournalPosts,
-    getThreeToDos
+    getThreeToDos,
+    registerUser,
+    loginUser
 }
 
 export default apis

@@ -1,10 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -39,8 +37,31 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SignUp() {
+export default function SignUp(props) {
     const classes = useStyles();
+
+    const [firstName, setFirstname] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleFormSubmit = async event => {
+        event.preventDefault();
+        try {
+            const payload = {
+                firstName,
+                lastName,
+                email,
+                password,
+                members: firstName
+            }
+            const response = await props.handleRegisterUser(payload);
+            console.log(response)
+
+        } catch(err) {
+            console.log(err)
+        }
+    }
 
     return (
         <Container component="main" maxWidth="xs" className={classes.container}>
@@ -53,7 +74,7 @@ export default function SignUp() {
                     <Typography component="h1" variant="h5">
                         Sign up
                     </Typography>
-                    <form className={classes.form} noValidate>
+                    <form className={classes.form} onSubmit={handleFormSubmit}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
@@ -65,6 +86,8 @@ export default function SignUp() {
                                     id="firstName"
                                     label="First Name"
                                     autoFocus
+                                    value={firstName}
+                                    onChange={event => setFirstname(event.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -76,6 +99,8 @@ export default function SignUp() {
                                     label="Last Name"
                                     name="lastName"
                                     autoComplete="lname"
+                                    value={lastName}
+                                    onChange={event => setLastName(event.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -87,6 +112,8 @@ export default function SignUp() {
                                     label="Email Address"
                                     name="email"
                                     autoComplete="email"
+                                    value={email}
+                                    onChange={event => setEmail(event.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -99,12 +126,8 @@ export default function SignUp() {
                                     type="password"
                                     id="password"
                                     autoComplete="current-password"
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <FormControlLabel
-                                    control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                    label="I want to receive inspiration, marketing promotions and updates via email."
+                                    value={password}
+                                    onChange={event => setPassword(event.target.value)}
                                 />
                             </Grid>
                         </Grid>
