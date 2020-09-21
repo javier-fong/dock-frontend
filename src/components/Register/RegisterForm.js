@@ -9,6 +9,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import api from '../Api';
+import Alert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -35,6 +37,10 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
+    alertStyle: {
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(1)
+    }
 }));
 
 export default function SignUp(props) {
@@ -44,25 +50,31 @@ export default function SignUp(props) {
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [emailError, setEmailError] = useState(false);
 
     const handleFormSubmit = async event => {
         event.preventDefault();
         try {
             const payload = {
-                firstName,
-                lastName,
-                email,
-                password,
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                password: password,
                 members: firstName
             }
-            const response = await props.handleRegisterUser(payload);
-            console.log(response)
+            const response = await api.registerUser(payload);
 
-        } catch(err) {
+            if (response.data.email === email) {
+                setEmailError(true)
+            } else {
+                window.location.href = '/login'
+            }
+                
+        } catch (err) {
             console.log(err)
         }
     }
-
+    
     return (
         <Container component="main" maxWidth="xs" className={classes.container}>
             <div className={classes.container2}>
@@ -74,6 +86,7 @@ export default function SignUp(props) {
                     <Typography component="h1" variant="h5">
                         Sign up
                     </Typography>
+                    {emailError ? <Alert severity="warning" className={classes.alertStyle}>Email already exist</Alert> : null}
                     <form className={classes.form} onSubmit={handleFormSubmit}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
