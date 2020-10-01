@@ -30,7 +30,7 @@ export class NavBarLandingPage extends Component {
                         </div>
                         <div id='mainListDiv' className='main_list'>
                             <Link to='/'>Home</Link>
-                            <Link to='/about'>About</Link>
+                            {/* <Link to='/about'>About</Link> */}
                             <Link to='/register'>Get Started</Link>
                             <Link to='/login'>Log In</Link>
                         </div>
