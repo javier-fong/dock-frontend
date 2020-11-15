@@ -9,8 +9,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { Pagination } from '@material-ui/lab/';
 import TodoItemModal from '../Todo/TodoItemModal';
 
-// Test git changes
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
